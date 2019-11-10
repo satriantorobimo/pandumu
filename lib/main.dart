@@ -12,8 +12,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: const Color(0xFF2877C6),
       ),
-      // home: BottomNavigationBarController(),
-      home: SplashScreen(),
+      home: BottomNavigationBarController(),
+      // home: SplashScreen(),
     );
   }
 }

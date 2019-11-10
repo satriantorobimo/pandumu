@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pandumu/util/navigation_bar_controller.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -78,7 +79,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: <Widget>[
                   Expanded(
                     child: RaisedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    BottomNavigationBarController()));
+                      },
                       color: Color(0xFF18B8EF),
                       child: Text(
                         'Login',
