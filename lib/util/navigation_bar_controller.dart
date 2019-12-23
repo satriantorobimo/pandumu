@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:pandumu/screen/ask_locals/ask_locals.dart';
-import 'package:pandumu/screen/home/home.dart';
-import 'package:pandumu/screen/travelmart/travelmart.dart';
-import 'package:pandumu/screen/travelog/travelog.dart';
-import 'package:pandumu/screen/tripmate/tripmate.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pandumu/ask_locals/screen/ask_locals.dart';
+import 'package:pandumu/home/screen/home.dart';
+import 'package:pandumu/travelmart/screen/travelmart.dart';
+import 'package:pandumu/travelog/screen/travelog.dart';
+import 'package:pandumu/tripmate/screen/tripmate.dart';
 
 class BottomNavigationBarController extends StatefulWidget {
   @override
@@ -43,21 +44,103 @@ class _BottomNavigationBarControllerState
         unselectedItemColor: Colors.grey,
         type: BottomNavigationBarType.fixed,
         elevation: 0,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('Home')),
+        items: [
           BottomNavigationBarItem(
-              icon: Icon(Icons.assignment), title: Text('Travelog')),
+              icon: Image.asset(
+                "assets/icons/bottom_bar/home_off.png",
+                width: ScreenUtil.getInstance().setWidth(24),
+                height: ScreenUtil.getInstance().setHeight(24),
+                fit: BoxFit.contain,
+                scale: 1,
+              ),
+              activeIcon: Image.asset(
+                "assets/icons/bottom_bar/home_on.png",
+                width: ScreenUtil.getInstance().setWidth(24),
+                height: ScreenUtil.getInstance().setHeight(24),
+                fit: BoxFit.contain,
+                scale: 1,
+              ),
+              title: Text('Home',
+                  style:
+                      TextStyle(fontSize: ScreenUtil.getInstance().setSp(12)))),
           BottomNavigationBarItem(
-              icon: Icon(Icons.directions_walk), title: Text('TripMate')),
+              icon: Image.asset(
+                "assets/icons/bottom_bar/travelog_off.png",
+                width: ScreenUtil.getInstance().setWidth(24),
+                height: ScreenUtil.getInstance().setHeight(24),
+                fit: BoxFit.contain,
+                scale: 1,
+              ),
+              activeIcon: Image.asset(
+                "assets/icons/bottom_bar/travelog_on.png",
+                width: ScreenUtil.getInstance().setWidth(24),
+                height: ScreenUtil.getInstance().setHeight(24),
+                fit: BoxFit.contain,
+                scale: 1,
+              ),
+              title: Text('Travelog',
+                  style:
+                      TextStyle(fontSize: ScreenUtil.getInstance().setSp(12)))),
           BottomNavigationBarItem(
-              icon: Icon(Icons.question_answer), title: Text('Ask Locals')),
+              icon: Image.asset(
+                "assets/icons/bottom_bar/tripmate_off.png",
+                width: ScreenUtil.getInstance().setWidth(24),
+                height: ScreenUtil.getInstance().setHeight(24),
+                fit: BoxFit.contain,
+                scale: 1,
+              ),
+              activeIcon: Image.asset(
+                "assets/icons/bottom_bar/tripmate_on.png",
+                width: ScreenUtil.getInstance().setWidth(24),
+                height: ScreenUtil.getInstance().setHeight(24),
+                fit: BoxFit.contain,
+                scale: 1,
+              ),
+              title: Text('TripMate',
+                  style:
+                      TextStyle(fontSize: ScreenUtil.getInstance().setSp(12)))),
           BottomNavigationBarItem(
-              icon: Icon(Icons.redeem), title: Text('TravelMart')),
+              icon: Image.asset(
+                "assets/icons/bottom_bar/asklocals_off.png",
+                width: ScreenUtil.getInstance().setWidth(24),
+                height: ScreenUtil.getInstance().setHeight(24),
+                fit: BoxFit.contain,
+                scale: 1,
+              ),
+              activeIcon: Image.asset(
+                "assets/icons/bottom_bar/asklocals_on.png",
+                width: ScreenUtil.getInstance().setWidth(24),
+                height: ScreenUtil.getInstance().setHeight(24),
+                fit: BoxFit.contain,
+                scale: 1,
+              ),
+              title: Text('Ask Locals',
+                  style:
+                      TextStyle(fontSize: ScreenUtil.getInstance().setSp(12)))),
+          BottomNavigationBarItem(
+              icon: Image.asset(
+                "assets/icons/bottom_bar/travelmart_off.png",
+                width: ScreenUtil.getInstance().setWidth(24),
+                height: ScreenUtil.getInstance().setHeight(24),
+                fit: BoxFit.contain,
+                scale: 1,
+              ),
+              activeIcon: Image.asset(
+                "assets/icons/bottom_bar/travelmart_on.png",
+                width: ScreenUtil.getInstance().setWidth(24),
+                height: ScreenUtil.getInstance().setHeight(24),
+                fit: BoxFit.contain,
+                scale: 1,
+              ),
+              title: Text('TravelMart',
+                  style:
+                      TextStyle(fontSize: ScreenUtil.getInstance().setSp(12)))),
         ],
       );
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.instance = ScreenUtil(width: 360, height: 640)..init(context);
     return Scaffold(
       bottomNavigationBar: _bottomNavigationBar(_selectedIndex),
       body: PageStorage(
