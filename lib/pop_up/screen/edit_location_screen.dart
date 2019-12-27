@@ -66,9 +66,14 @@ class _EditLocationScreenState extends State<EditLocationScreen> {
                         hintStyle: TextStyle(
                             fontSize: ScreenUtil.getInstance().setSp(14)),
                         suffixIcon: IconButton(
+                            splashColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
                             icon: Icon(Icons.close,
                                 size: ScreenUtil.getInstance().setSp(16)),
-                            onPressed: () {}))),
+                            onPressed: () {
+                              print("clear");
+                              locationController.clear();
+                            }))),
               ))
         ],
       ),

@@ -88,6 +88,9 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
               decoration: InputDecoration(
                   hintText: 'Enter your Username',
                   labelText: 'Username',
+                  hintStyle: TextStyle(
+                    fontSize: ScreenUtil.getInstance().setSp(14),
+                  ),
                   labelStyle: TextStyle(
                     fontSize: ScreenUtil.getInstance().setSp(14),
                   )),
@@ -101,6 +104,9 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
               decoration: InputDecoration(
                   hintText: 'Enter your Display Name or Real Name',
                   labelText: 'Display Name',
+                  hintStyle: TextStyle(
+                    fontSize: ScreenUtil.getInstance().setSp(14),
+                  ),
                   labelStyle: TextStyle(
                     fontSize: ScreenUtil.getInstance().setSp(14),
                   )),
@@ -115,6 +121,9 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
               decoration: InputDecoration(
                   hintText: 'Enter your Password',
                   labelText: 'Password',
+                  hintStyle: TextStyle(
+                    fontSize: ScreenUtil.getInstance().setSp(14),
+                  ),
                   labelStyle: TextStyle(
                     fontSize: ScreenUtil.getInstance().setSp(14),
                   )),
@@ -129,6 +138,9 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
               decoration: InputDecoration(
                   hintText: 'Enter your Confirm Password',
                   labelText: 'Confirm Password',
+                  hintStyle: TextStyle(
+                    fontSize: ScreenUtil.getInstance().setSp(14),
+                  ),
                   labelStyle: TextStyle(
                     fontSize: ScreenUtil.getInstance().setSp(14),
                   )),
@@ -138,10 +150,11 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
             ),
             Container(
                 width: ScreenUtil.getInstance().setWidth(120),
-                child:
-                    passwordLength && confirmPassword && displayName && userName
-                        ? checkEnableButton()
-                        : checkDisableButton()),
+                child: checkEnableButton()
+                // passwordLength && confirmPassword && displayName && userName
+                //     ? checkEnableButton()
+                //     : checkDisableButton()
+                ),
           ],
         ));
   }

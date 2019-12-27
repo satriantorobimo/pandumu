@@ -15,7 +15,7 @@ class _HomeScreenState extends State<HomeScreen> {
   bool tripMateShow = false;
   bool meetTravellerDismiss = false;
   bool tripMateDismiss = false;
-  final List<int> numbers = [1];
+  final List<int> numbers = [1, 2, 3, 4];
   final List<int> firends = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   @override
@@ -30,7 +30,8 @@ class _HomeScreenState extends State<HomeScreen> {
           Container(
             width: ScreenUtil.getInstance().setWidth(50),
             height: ScreenUtil.getInstance().setHeight(50),
-            margin: const EdgeInsets.only(bottom: 8),
+            margin:
+                EdgeInsets.only(bottom: ScreenUtil.getInstance().setHeight(8)),
             child: Icon(Icons.search),
           )
         ],
@@ -160,7 +161,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Container(
                         width: ScreenUtil.getInstance().setWidth(80),
                         height: ScreenUtil.getInstance().setHeight(20),
-                        margin: const EdgeInsets.only(right: 16),
+                        margin: EdgeInsets.only(
+                            right: ScreenUtil.getInstance().setWidth(16)),
                         decoration: BoxDecoration(
                             border: Border.all(color: const Color(0xFF18B8EF))),
                         child: Center(
@@ -168,13 +170,13 @@ class _HomeScreenState extends State<HomeScreen> {
                             'Find More',
                             style: TextStyle(
                                 fontFamily: 'Roboto',
-                                fontSize: 12,
+                                fontSize: ScreenUtil.getInstance().setSp(12),
                                 color: const Color(0xFF18B8EF)),
                           ),
                         )),
                   ),
                   SizedBox(
-                    height: 16,
+                    height: ScreenUtil.getInstance().setHeight(16),
                   )
                 ],
               ),
@@ -272,7 +274,7 @@ class _HomeScreenState extends State<HomeScreen> {
             //     ],
             //   ),
             // ),
-            SizedBox(height: 16),
+            SizedBox(height: ScreenUtil.getInstance().setHeight(16)),
             //Timeline Baru
             Container(
               color: Colors.white,
@@ -284,20 +286,25 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisSize: MainAxisSize.max,
                     children: <Widget>[
                       Container(
-                        padding: const EdgeInsets.only(top: 16),
+                        padding: EdgeInsets.only(
+                            top: ScreenUtil.getInstance().setHeight(16)),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Container(
-                              margin: const EdgeInsets.only(left: 16, right: 8),
+                              margin: EdgeInsets.only(
+                                  left: ScreenUtil.getInstance().setWidth(16),
+                                  right: ScreenUtil.getInstance().setWidth(8)),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   Container(
-                                    width: 45.0,
-                                    height: 45.0,
+                                    width:
+                                        ScreenUtil.getInstance().setWidth(45),
+                                    height:
+                                        ScreenUtil.getInstance().setHeight(45),
                                     decoration: BoxDecoration(
                                       color: Colors.grey,
                                       shape: BoxShape.circle,
@@ -307,7 +314,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ],
                               ),
                             ),
-                            SizedBox(width: 16),
+                            SizedBox(
+                                width: ScreenUtil.getInstance().setWidth(16)),
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -317,28 +325,37 @@ class _HomeScreenState extends State<HomeScreen> {
                                       Text('Display Name',
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
-                                              fontSize: 16)),
-                                      SizedBox(width: 8),
+                                              fontSize: ScreenUtil.getInstance()
+                                                  .setSp(16))),
+                                      SizedBox(
+                                          width: ScreenUtil.getInstance()
+                                              .setWidth(8)),
                                       Text('@username',
                                           style: TextStyle(color: Colors.grey)),
-                                      SizedBox(width: 8),
+                                      SizedBox(
+                                          width: ScreenUtil.getInstance()
+                                              .setWidth(8)),
                                       Text('- 23h',
                                           style: TextStyle(color: Colors.grey))
                                     ],
                                   ),
-                                  SizedBox(height: 8),
+                                  SizedBox(height: 4),
                                   Container(
-                                      padding: const EdgeInsets.only(right: 16),
+                                      padding: EdgeInsets.only(
+                                          right: ScreenUtil.getInstance()
+                                              .setWidth(16)),
                                       child: RichText(
                                         text: TextSpan(
                                             text:
                                                 'Cari barengan ke Morotai GIRLS only Bogor / Jakarta ada yang maukah?',
                                             style: TextStyle(
-                                                fontSize: 16,
+                                                fontSize:
+                                                    ScreenUtil.getInstance()
+                                                        .setSp(16),
                                                 color: Color(0xFF2877C6))),
                                         textAlign: TextAlign.justify,
                                       )),
-                                  SizedBox(height: 16),
+                                  SizedBox(height: 4),
                                 ],
                               ),
                             ),
@@ -346,64 +363,82 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       Container(
-                        margin:
-                            const EdgeInsets.only(left: 28, bottom: 8, top: 8),
+                        margin: EdgeInsets.only(
+                            left: ScreenUtil.getInstance().setWidth(28),
+                            bottom: ScreenUtil.getInstance().setHeight(4),
+                            top: ScreenUtil.getInstance().setHeight(4)),
                         child: Row(
                           children: <Widget>[
                             Icon(Icons.calendar_today,
-                                size: 20, color: Colors.grey),
-                            SizedBox(width: 35),
+                                size: ScreenUtil.getInstance().setSp(20),
+                                color: Colors.grey),
+                            SizedBox(
+                                width: ScreenUtil.getInstance().setWidth(35)),
                             Text(
                               '20 - 25 Juli 2019 (6H5M)',
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(fontSize: 16.0),
+                              style: TextStyle(
+                                  fontSize: ScreenUtil.getInstance().setSp(16)),
                             ),
                           ],
                         ),
                       ),
                       Container(
-                        margin:
-                            const EdgeInsets.only(left: 28, bottom: 8, top: 8),
+                        margin: EdgeInsets.only(
+                            left: ScreenUtil.getInstance().setWidth(28),
+                            bottom: ScreenUtil.getInstance().setHeight(4),
+                            top: ScreenUtil.getInstance().setHeight(4)),
                         child: Row(
                           children: <Widget>[
-                            Icon(Icons.group, size: 20, color: Colors.grey),
-                            SizedBox(width: 35),
+                            Icon(Icons.group,
+                                size: ScreenUtil.getInstance().setSp(20),
+                                color: Colors.grey),
+                            SizedBox(
+                                width: ScreenUtil.getInstance().setWidth(35)),
                             Expanded(
                               child: Text(
                                 '3 - 5 orang',
                                 overflow: TextOverflow.clip,
-                                style: TextStyle(fontSize: 16.0),
+                                style: TextStyle(
+                                    fontSize:
+                                        ScreenUtil.getInstance().setSp(16)),
                               ),
                             ),
                           ],
                         ),
                       ),
                       Container(
-                        margin:
-                            const EdgeInsets.only(left: 28, bottom: 8, top: 8),
+                        margin: EdgeInsets.only(
+                            left: ScreenUtil.getInstance().setWidth(28),
+                            top: ScreenUtil.getInstance().setHeight(4)),
                         child: Row(
                           children: <Widget>[
-                            Icon(Icons.pin_drop, size: 20, color: Colors.grey),
-                            SizedBox(width: 35),
+                            Icon(Icons.pin_drop,
+                                size: ScreenUtil.getInstance().setSp(20),
+                                color: Colors.grey),
+                            SizedBox(
+                                width: ScreenUtil.getInstance().setWidth(35)),
                             Expanded(
                               child: Text(
                                 'Pulau Sumsum, Morotai, Maluku',
                                 overflow: TextOverflow.clip,
-                                style: TextStyle(fontSize: 16.0),
+                                style: TextStyle(
+                                    fontSize:
+                                        ScreenUtil.getInstance().setSp(16)),
                               ),
                             ),
                           ],
                         ),
                       ),
-                      SizedBox(height: 8),
                       Container(
-                        padding: const EdgeInsets.all(16),
+                        padding: EdgeInsets.all(16),
                         child: RichText(
                           text: TextSpan(
                               text:
                                   'Sharecost ya. Meeting point bisa di Soetta atau Ternate. Kak ',
-                              style:
-                                  TextStyle(fontSize: 16, color: Colors.black),
+                              style: TextStyle(
+                                  fontSize: ScreenUtil.getInstance().setSp(16),
+                                  color: Colors.black),
                               children: <TextSpan>[
                                 TextSpan(
                                     text: '@trvlbgr ',
@@ -413,9 +448,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           textAlign: TextAlign.justify,
                         ),
                       ),
-                      SizedBox(height: 8),
                       Container(
-                        padding: const EdgeInsets.only(left: 16, right: 16),
+                        padding: EdgeInsets.only(
+                            left: ScreenUtil.getInstance().setWidth(16),
+                            right: ScreenUtil.getInstance().setWidth(16)),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
@@ -423,32 +459,43 @@ class _HomeScreenState extends State<HomeScreen> {
                               children: <Widget>[
                                 Icon(
                                   Custom.chat,
-                                  size: 15,
+                                  size: ScreenUtil.getInstance().setSp(15),
                                   color: Colors.grey,
                                 ),
-                                SizedBox(width: 8),
+                                SizedBox(
+                                    width:
+                                        ScreenUtil.getInstance().setWidth(8)),
                                 Text(
                                   '999',
                                   style: TextStyle(
-                                      fontSize: 15.0, color: Colors.grey),
+                                      fontSize:
+                                          ScreenUtil.getInstance().setSp(15),
+                                      color: Colors.grey),
                                 ),
                               ],
                             ),
                             Row(
                               children: <Widget>[
                                 Icon(Custom.heart_empty,
-                                    size: 15, color: Colors.grey),
+                                    size: ScreenUtil.getInstance().setSp(15),
+                                    color: Colors.grey),
                                 SizedBox(width: 8),
                                 Text('999',
                                     style: TextStyle(
-                                        fontSize: 15.0, color: Colors.grey))
+                                        fontSize:
+                                            ScreenUtil.getInstance().setSp(15),
+                                        color: Colors.grey))
                               ],
                             ),
-                            Icon(Icons.share, size: 15, color: Colors.grey),
+                            Icon(Icons.share,
+                                size: ScreenUtil.getInstance().setSp(15),
+                                color: Colors.grey),
                             Padding(
-                              padding: const EdgeInsets.only(right: 25),
+                              padding: EdgeInsets.only(
+                                  right: ScreenUtil.getInstance().setWidth(25)),
                               child: Icon(Icons.bookmark_border,
-                                  size: 15, color: Colors.grey),
+                                  size: ScreenUtil.getInstance().setSp(15),
+                                  color: Colors.grey),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(7.0),
