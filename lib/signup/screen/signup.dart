@@ -134,13 +134,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         Container(
                           width: ScreenUtil.getInstance().setWidth(180),
                           child: TextField(
+                            inputFormatters: <TextInputFormatter>[
+                              LengthLimitingTextInputFormatter(13),
+                            ],
                             keyboardType: TextInputType.number,
                             style: TextStyle(
                                 fontSize: ScreenUtil.getInstance().setSp(18)),
                             controller: numberController,
                             onChanged: (text) {
                               print("Length : ${text.length}");
-                              if (text.length > 10) {
+                              if (text.length >= 10) {
                                 setState(() {
                                   enableButton = true;
                                 });

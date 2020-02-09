@@ -128,6 +128,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                 color: Colors.white,
                 child: ListView.builder(
                   shrinkWrap: true,
+                  padding: EdgeInsets.zero,
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, position) {
                     return Column(

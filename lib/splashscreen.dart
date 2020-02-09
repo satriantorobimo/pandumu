@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pandumu/login/screen/login.dart';
 import 'package:pandumu/util/custom_fade_transition.dart';
 
+import 'login/screen/login2.dart';
+
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
@@ -16,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(
         Duration(seconds: 7),
         () => Navigator.pushReplacement(
-            context, CustomFadeTransition(widget: LoginScreen())));
+            context, CustomFadeTransition(widget: LoginScreen2())));
   }
 
   void checkLogin() async {

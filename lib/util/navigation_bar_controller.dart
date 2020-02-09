@@ -5,6 +5,7 @@ import 'package:pandumu/home/screen/home.dart';
 import 'package:pandumu/travelmart/screen/travelmart.dart';
 import 'package:pandumu/travelog/screen/travelog.dart';
 import 'package:pandumu/tripmate/screen/tripmate.dart';
+import 'package:pandumu/util/drawer.dart';
 
 class BottomNavigationBarController extends StatefulWidget {
   @override

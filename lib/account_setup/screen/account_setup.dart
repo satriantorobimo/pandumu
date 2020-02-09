@@ -20,6 +20,7 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
   TextEditingController displayNameCtrl = TextEditingController();
   TextEditingController passwordCtrl = TextEditingController();
   TextEditingController confirmPasswordCtrl = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   void dispose() {
     userNameCtrl.dispose();
@@ -33,43 +34,41 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
   Widget build(BuildContext context) {
     ScreenUtil.instance = ScreenUtil(width: 360, height: 640)..init(context);
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomPadding: true,
       backgroundColor: Colors.white,
-      body: Stack(
-        children: <Widget>[
-          Container(
-            height: ScreenUtil.getInstance().setHeight(180),
-            decoration: BoxDecoration(color: const Color(0xFF166EC6)),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              SizedBox(
-                height: ScreenUtil.getInstance().setHeight(10),
-              ),
-              _buildHeaderText(context),
-              SizedBox(
-                height: ScreenUtil.getInstance().setHeight(5),
-              ),
-              _formAccount(context)
-            ],
-          )
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            // SizedBox(
+            //   height: ScreenUtil.getInstance().setHeight(10),
+            // ),
+            _buildHeaderText(context),
+            SizedBox(
+              height: ScreenUtil.getInstance().setHeight(25),
+            ),
+            _formAccount(context)
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildHeaderText(BuildContext context) {
     return Container(
-      child: RichText(
-        text: TextSpan(
-            text: 'Account Setup',
-            style: TextStyle(
-                fontFamily: 'Roboto',
-                fontWeight: FontWeight.bold,
-                fontSize: ScreenUtil.getInstance().setSp(30),
-                color: Colors.white)),
-        textAlign: TextAlign.center,
+      height: ScreenUtil.getInstance().setHeight(180),
+      decoration: BoxDecoration(color: const Color(0xFF166EC6)),
+      child: Center(
+        child: RichText(
+          text: TextSpan(
+              text: 'Account Setup',
+              style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontWeight: FontWeight.bold,
+                  fontSize: ScreenUtil.getInstance().setSp(30),
+                  color: Colors.white)),
+          textAlign: TextAlign.center,
+        ),
       ),
     );
   }
@@ -80,82 +79,109 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
           left: ScreenUtil.getInstance().setWidth(50),
           right: ScreenUtil.getInstance().setWidth(50),
         ),
-        child: Column(
-          children: <Widget>[
-            TextFormField(
-              controller: userNameCtrl,
-              validator: checkUserName(userNameCtrl.text),
-              decoration: InputDecoration(
-                  hintText: 'Enter your Username',
-                  labelText: 'Username',
-                  hintStyle: TextStyle(
-                    fontSize: ScreenUtil.getInstance().setSp(14),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: <Widget>[
+              TextFormField(
+                controller: userNameCtrl,
+                // validator: checkUserName(userNameCtrl.text),
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
+                decoration: InputDecoration(
+                    hintText: 'Enter your Username',
+                    labelText: 'Username',
+                    hintStyle: TextStyle(
+                      fontSize: ScreenUtil.getInstance().setSp(14),
+                    ),
+                    labelStyle: TextStyle(
+                      fontSize: ScreenUtil.getInstance().setSp(14),
+                    )),
+              ),
+              SizedBox(
+                height: ScreenUtil.getInstance().setHeight(25),
+              ),
+              TextFormField(
+                controller: displayNameCtrl,
+                // validator: checkDisplayName(displayNameCtrl.text),
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
+                decoration: InputDecoration(
+                    hintText: 'Enter your Display Name or Real Name',
+                    labelText: 'Display Name',
+                    hintStyle: TextStyle(
+                      fontSize: ScreenUtil.getInstance().setSp(14),
+                    ),
+                    labelStyle: TextStyle(
+                      fontSize: ScreenUtil.getInstance().setSp(14),
+                    )),
+              ),
+              SizedBox(
+                height: ScreenUtil.getInstance().setHeight(25),
+              ),
+              TextFormField(
+                controller: passwordCtrl,
+                // validator: checkPasswordlength(passwordCtrl.text),
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
+                obscureText: true,
+                decoration: InputDecoration(
+                    hintText: 'Enter your Password',
+                    labelText: 'Password',
+                    hintStyle: TextStyle(
+                      fontSize: ScreenUtil.getInstance().setSp(14),
+                    ),
+                    labelStyle: TextStyle(
+                      fontSize: ScreenUtil.getInstance().setSp(14),
+                    )),
+              ),
+              SizedBox(
+                height: ScreenUtil.getInstance().setHeight(25),
+              ),
+              TextFormField(
+                controller: confirmPasswordCtrl,
+                // validator: checkConfirmPassword(confirmPasswordCtrl.text),
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Please enter some text';
+                  }
+                  return null;
+                },
+                obscureText: true,
+                decoration: InputDecoration(
+                    hintText: 'Enter your Confirm Password',
+                    labelText: 'Confirm Password',
+                    hintStyle: TextStyle(
+                      fontSize: ScreenUtil.getInstance().setSp(14),
+                    ),
+                    labelStyle: TextStyle(
+                      fontSize: ScreenUtil.getInstance().setSp(14),
+                    )),
+              ),
+              SizedBox(
+                height: ScreenUtil.getInstance().setHeight(15),
+              ),
+              Container(
+                  width: ScreenUtil.getInstance().setWidth(120),
+                  child: checkEnableButton()
+                  // passwordLength && confirmPassword && displayName && userName
+                  //     ? checkEnableButton()
+                  //     : checkDisableButton()
                   ),
-                  labelStyle: TextStyle(
-                    fontSize: ScreenUtil.getInstance().setSp(14),
-                  )),
-            ),
-            SizedBox(
-              height: ScreenUtil.getInstance().setHeight(40),
-            ),
-            TextFormField(
-              controller: displayNameCtrl,
-              validator: checkDisplayName(displayNameCtrl.text),
-              decoration: InputDecoration(
-                  hintText: 'Enter your Display Name or Real Name',
-                  labelText: 'Display Name',
-                  hintStyle: TextStyle(
-                    fontSize: ScreenUtil.getInstance().setSp(14),
-                  ),
-                  labelStyle: TextStyle(
-                    fontSize: ScreenUtil.getInstance().setSp(14),
-                  )),
-            ),
-            SizedBox(
-              height: ScreenUtil.getInstance().setHeight(40),
-            ),
-            TextFormField(
-              controller: passwordCtrl,
-              validator: checkPasswordlength(passwordCtrl.text),
-              obscureText: true,
-              decoration: InputDecoration(
-                  hintText: 'Enter your Password',
-                  labelText: 'Password',
-                  hintStyle: TextStyle(
-                    fontSize: ScreenUtil.getInstance().setSp(14),
-                  ),
-                  labelStyle: TextStyle(
-                    fontSize: ScreenUtil.getInstance().setSp(14),
-                  )),
-            ),
-            SizedBox(
-              height: ScreenUtil.getInstance().setHeight(40),
-            ),
-            TextFormField(
-              controller: confirmPasswordCtrl,
-              validator: checkConfirmPassword(confirmPasswordCtrl.text),
-              obscureText: true,
-              decoration: InputDecoration(
-                  hintText: 'Enter your Confirm Password',
-                  labelText: 'Confirm Password',
-                  hintStyle: TextStyle(
-                    fontSize: ScreenUtil.getInstance().setSp(14),
-                  ),
-                  labelStyle: TextStyle(
-                    fontSize: ScreenUtil.getInstance().setSp(14),
-                  )),
-            ),
-            SizedBox(
-              height: ScreenUtil.getInstance().setHeight(20),
-            ),
-            Container(
-                width: ScreenUtil.getInstance().setWidth(120),
-                child: checkEnableButton()
-                // passwordLength && confirmPassword && displayName && userName
-                //     ? checkEnableButton()
-                //     : checkDisableButton()
-                ),
-          ],
+            ],
+          ),
         ));
   }
 
@@ -186,8 +212,20 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
         //   isLoading = true;
         // });
         // verifyPhone();
-        Navigator.pushReplacement(
-            context, CustomFadeTransition(widget: EditPtofileScreen()));
+        if (_formKey.currentState.validate()) {
+          // If the form is valid, display a snackbar. In the real world,
+          // you'd often call a server or save the information in a database.
+
+          Navigator.pushReplacement(
+              context,
+              CustomFadeTransition(
+                  widget: EditPtofileScreen(
+                      userName: userNameCtrl.text,
+                      displayName: displayNameCtrl.text,
+                      password: passwordCtrl.text)));
+        }
+        // Navigator.pushReplacement(
+        //     context, CustomFadeTransition(widget: EditPtofileScreen()));
       },
       color: const Color(0xFF007FFD),
       shape: RoundedRectangleBorder(

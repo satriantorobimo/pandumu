@@ -73,7 +73,7 @@ class _FeedsScreenState extends State<FeedsScreen> {
                                     style: TextStyle(
                                         fontSize: 16,
                                         color: Color(0xFF2877C6))),
-                                textAlign: TextAlign.justify,
+                                textAlign: TextAlign.left,
                               )),
                           SizedBox(height: 16),
                         ],
@@ -83,7 +83,7 @@ class _FeedsScreenState extends State<FeedsScreen> {
                 ),
               ),
               Container(
-                margin: const EdgeInsets.only(left: 28, bottom: 8, top: 8),
+                margin: const EdgeInsets.only(left: 28),
                 child: Row(
                   children: <Widget>[
                     Icon(Icons.calendar_today, size: 20, color: Colors.grey),
@@ -97,7 +97,7 @@ class _FeedsScreenState extends State<FeedsScreen> {
                 ),
               ),
               Container(
-                margin: const EdgeInsets.only(left: 28, bottom: 8, top: 8),
+                margin: const EdgeInsets.only(left: 28, top: 8),
                 child: Row(
                   children: <Widget>[
                     Icon(Icons.group, size: 20, color: Colors.grey),
@@ -130,7 +130,7 @@ class _FeedsScreenState extends State<FeedsScreen> {
               ),
               SizedBox(height: 8),
               Container(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.only(left: 16, right: 16),
                 child: RichText(
                   text: TextSpan(
                       text:

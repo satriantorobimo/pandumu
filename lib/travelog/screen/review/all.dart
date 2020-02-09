@@ -15,6 +15,7 @@ class _ReviewAllScreenState extends State<ReviewAllScreen> {
         color: Colors.white,
         child: ListView.builder(
           shrinkWrap: true,
+          padding: EdgeInsets.zero,
           physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (context, position) {
             return Column(
@@ -72,7 +73,8 @@ class _ReviewAllScreenState extends State<ReviewAllScreen> {
                             SizedBox(height: 8),
                             Container(
                               child: Text(
-                                  'Really want to do solo travelling ke Indonesia Timur... apa daya working days gw jahanaaam hmm~'),
+                                  'Really want to do solo travelling ke Indonesia Timur... apa daya working days gw jahanaaam hmm~',
+                                  style: TextStyle(fontSize: 16)),
                             ),
                             SizedBox(height: 16),
                             Row(

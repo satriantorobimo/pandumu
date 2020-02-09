@@ -135,8 +135,8 @@ class _OtpScreenState extends State<OtpScreen> {
                         pinLength: 6,
                         decoration: _pinDecoration,
                         controller: _pinEditingController,
-                        autoFocus: true,
-                        textInputAction: TextInputAction.go,
+                        autoFocus: false,
+                        textInputAction: TextInputAction.done,
                         onChanged: (pin) {
                           print("OTP : ${pin.length}");
                           setState(() {
@@ -273,7 +273,7 @@ class _OtpScreenState extends State<OtpScreen> {
       },
       color: const Color(0xFF007FFD),
       shape: RoundedRectangleBorder(
-          borderRadius: new BorderRadius.circular(18.0),
+          borderRadius: BorderRadius.circular(18.0),
           side: BorderSide(color: const Color(0xFF007FFD))));
 
   signIn() async {

@@ -12,6 +12,17 @@ import 'package:pandumu/util/crop_rectangle.dart';
 import 'package:pandumu/util/custom_fade_transition.dart';
 
 class EditPtofileScreen extends StatefulWidget {
+  final String userName;
+  final String displayName;
+  final String password;
+
+  const EditPtofileScreen(
+      {Key key,
+      @required this.userName,
+      @required this.displayName,
+      @required this.password})
+      : super(key: key);
+
   @override
   _EditPtofileScreenState createState() => _EditPtofileScreenState();
 }
@@ -21,6 +32,10 @@ class _EditPtofileScreenState extends State<EditPtofileScreen> {
   File _imagePp;
   bool imageHeader = false;
   bool imagePp = false;
+  String getBod = "";
+  String getLocation = "";
+  String getTitle = "";
+  String getContent = "";
 
   Future getImageHeader(bool camera) async {
     var image;
@@ -61,30 +76,40 @@ class _EditPtofileScreenState extends State<EditPtofileScreen> {
         context: context,
         builder: (BuildContext bc) {
           return Container(
-            child: Wrap(
-              children: <Widget>[
-                ListTile(
-                    leading: Icon(Icons.photo_library),
-                    title: Text('Gallery'),
+            color: Color(0xFF737373),
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(8),
+                      topRight: Radius.circular(8))),
+              child: Wrap(
+                children: <Widget>[
+                  ListTile(
+                      leading: Icon(Icons.photo_library),
+                      title: Text('Gallery'),
+                      onTap: () {
+                        if (type == "header") {
+                          getImageHeader(false);
+                        } else {
+                          getImagePp(false);
+                        }
+                        Navigator.pop(context);
+                      }),
+                  ListTile(
+                    leading: Icon(Icons.camera_alt),
+                    title: Text('Camera'),
                     onTap: () {
                       if (type == "header") {
-                        getImageHeader(false);
+                        getImageHeader(true);
                       } else {
-                        getImagePp(false);
+                        getImagePp(true);
                       }
-                    }),
-                ListTile(
-                  leading: Icon(Icons.camera_alt),
-                  title: Text('Camera'),
-                  onTap: () {
-                    if (type == "header") {
-                      getImageHeader(true);
-                    } else {
-                      getImagePp(true);
-                    }
-                  },
-                ),
-              ],
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              ),
             ),
           );
         });
@@ -94,7 +119,6 @@ class _EditPtofileScreenState extends State<EditPtofileScreen> {
   Widget build(BuildContext context) {
     ScreenUtil.instance = ScreenUtil(width: 360, height: 640)..init(context);
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text("Edit Profile"),
@@ -177,7 +201,7 @@ class _EditPtofileScreenState extends State<EditPtofileScreen> {
                             style: TextStyle(
                                 fontSize: ScreenUtil.getInstance().setSp(16))),
                       ),
-                      Text("@pandumu",
+                      Text("@" + widget.userName,
                           style: TextStyle(
                               color: const Color(0xFF00BEFF),
                               fontSize: ScreenUtil.getInstance().setSp(16))),
@@ -203,7 +227,7 @@ class _EditPtofileScreenState extends State<EditPtofileScreen> {
                               style: TextStyle(
                                   fontSize:
                                       ScreenUtil.getInstance().setSp(16)))),
-                      Text("Teman Jalan",
+                      Text(widget.displayName,
                           style: TextStyle(
                               color: const Color(0xFF00BEFF),
                               fontSize: ScreenUtil.getInstance().setSp(16))),
@@ -232,6 +256,7 @@ class _EditPtofileScreenState extends State<EditPtofileScreen> {
                       Container(
                         width: ScreenUtil.getInstance().setWidth(200),
                         child: TextField(
+                          keyboardType: TextInputType.text,
                           maxLines: 8,
                           maxLength: 140,
                           decoration: InputDecoration.collapsed(
@@ -267,20 +292,28 @@ class _EditPtofileScreenState extends State<EditPtofileScreen> {
                       ),
                       Container(
                         width: ScreenUtil.getInstance().setWidth(185),
-                        child: Text("Location",
+                        child: Text(
+                            getLocation == "" ? "Location" : getLocation,
                             style: TextStyle(
-                                color: Colors.grey,
-                                fontStyle: FontStyle.italic,
+                                color: getLocation == ""
+                                    ? Colors.grey
+                                    : Color(0xFF00BEFF),
+                                fontStyle:
+                                    getLocation == "" ? FontStyle.italic : null,
                                 fontSize: ScreenUtil.getInstance().setSp(16))),
                       ),
                       Container(
                         width: ScreenUtil.getInstance().setWidth(20),
                         child: GestureDetector(
-                          onTap: () {
-                            Navigator.push(
+                          onTap: () async {
+                            final result = await Navigator.push(
                                 context,
                                 CustomFadeTransition(
-                                    widget: EditLocationScreen()));
+                                    widget: EditLocationScreen(
+                                        currentLocation: getLocation)));
+                            setState(() {
+                              if (result != null) getLocation = result;
+                            });
                           },
                           child: Icon(Icons.keyboard_arrow_down,
                               color: Colors.grey,
@@ -300,7 +333,7 @@ class _EditPtofileScreenState extends State<EditPtofileScreen> {
                     bottom: ScreenUtil.getInstance().setHeight(12),
                   ),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Container(
@@ -311,18 +344,28 @@ class _EditPtofileScreenState extends State<EditPtofileScreen> {
                       ),
                       Container(
                         width: ScreenUtil.getInstance().setWidth(185),
-                        child: Text("Add your date of birth",
+                        child: Text(
+                            getBod == "" ? "Add your date of birth" : getBod,
                             style: TextStyle(
-                                color: Colors.grey,
-                                fontStyle: FontStyle.italic,
+                                color: getBod == ""
+                                    ? Colors.grey
+                                    : Color(0xFF00BEFF),
+                                fontStyle:
+                                    getBod == "" ? FontStyle.italic : null,
                                 fontSize: ScreenUtil.getInstance().setSp(16))),
                       ),
                       Container(
                         width: ScreenUtil.getInstance().setWidth(20),
                         child: GestureDetector(
-                          onTap: () {
-                            Navigator.push(context,
-                                CustomFadeTransition(widget: EditBodScreen()));
+                          onTap: () async {
+                            final result = await Navigator.push(
+                                context,
+                                CustomFadeTransition(
+                                    widget: EditBodScreen(currentBod: getBod)));
+                            print(result);
+                            setState(() {
+                              if (result != null) getBod = result;
+                            });
                           },
                           child: Icon(Icons.keyboard_arrow_down,
                               color: Colors.grey,
@@ -342,7 +385,7 @@ class _EditPtofileScreenState extends State<EditPtofileScreen> {
                     bottom: ScreenUtil.getInstance().setHeight(12),
                   ),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Container(
@@ -351,23 +394,57 @@ class _EditPtofileScreenState extends State<EditPtofileScreen> {
                             style: TextStyle(
                                 fontSize: ScreenUtil.getInstance().setSp(16))),
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              CustomFadeTransition(
-                                  widget: BussinessProfileScreen()));
-                        },
-                        child: Text("Add your bussiness profile",
-                            style: TextStyle(
-                                color: Colors.grey,
-                                fontStyle: FontStyle.italic,
-                                fontSize: ScreenUtil.getInstance().setSp(16))),
+                      Container(
+                        width: ScreenUtil.getInstance().setWidth(20),
+                        child: GestureDetector(
+                          onTap: () async {
+                            final result = await Navigator.push(
+                                context,
+                                CustomFadeTransition(
+                                    widget: BussinessProfileScreen()));
+                            List data = result;
+                            setState(() {
+                              getTitle = data[0].toString();
+                              getContent = data[1].toString();
+                            });
+                          },
+                          child: Icon(Icons.keyboard_arrow_down,
+                              color: Colors.grey,
+                              size: ScreenUtil.getInstance().setSp(24)),
+                        ),
                       ),
                     ],
                   ),
                 ),
-                Divider()
+                Divider(),
+                getTitle != ""
+                    ? Container(
+                        padding: EdgeInsets.only(
+                          top: ScreenUtil.getInstance().setHeight(12),
+                          left: ScreenUtil.getInstance().setWidth(12),
+                          right: ScreenUtil.getInstance().setWidth(12),
+                          bottom: ScreenUtil.getInstance().setHeight(12),
+                        ),
+                        child: Text(getTitle,
+                            style: TextStyle(
+                                fontSize: ScreenUtil.getInstance().setSp(20),
+                                color: Color(0xFF00BEFF))),
+                      )
+                    : Container(),
+                getContent != ""
+                    ? Container(
+                        padding: EdgeInsets.only(
+                          top: ScreenUtil.getInstance().setHeight(12),
+                          left: ScreenUtil.getInstance().setWidth(12),
+                          right: ScreenUtil.getInstance().setWidth(12),
+                          bottom: ScreenUtil.getInstance().setHeight(12),
+                        ),
+                        child: Text(getContent,
+                            style: TextStyle(
+                                fontSize: ScreenUtil.getInstance().setSp(14),
+                                color: Colors.black)),
+                      )
+                    : Container()
               ],
             ),
           ),

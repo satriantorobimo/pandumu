@@ -125,9 +125,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         fontSize: ScreenUtil.getInstance().setSp(14),
                         fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(
-                    height: ScreenUtil.getInstance().setHeight(5),
-                  ),
                   GestureDetector(
                     onTap: () {
                       Navigator.pushReplacement(context,
@@ -141,6 +138,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           color: Colors.white,
                           fontWeight: FontWeight.bold),
                     ),
+                  ),
+                  SizedBox(
+                    height: ScreenUtil.getInstance().setHeight(25),
                   ),
                 ],
               ),
