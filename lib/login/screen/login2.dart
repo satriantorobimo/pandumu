@@ -1,8 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pandumu/signup/screen/signup.dart';
+import 'package:pandumu/util/color.dart';
 import 'package:pandumu/util/custom_fade_transition.dart';
 import 'package:pandumu/util/navigation_bar_controller.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen2 extends StatefulWidget {
   @override
@@ -11,7 +14,15 @@ class LoginScreen2 extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen2> {
   final _formKey = GlobalKey<FormState>();
-  String username, password;
+  String username = '',
+      password = '',
+      _errorMessage = '',
+      passValidator = '',
+      userValidator = '';
+
+  bool _isLoading = false;
+
+  final databaseReference = Firestore.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -61,16 +72,18 @@ class _LoginScreenState extends State<LoginScreen2> {
                           TextFormField(
                             decoration: InputDecoration(
                               enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: const Color(0xFF007FFD))),
+                                  borderSide:
+                                      BorderSide(color: bluePrimaryLight)),
                               hintText: "Username",
                               hintStyle: TextStyle(
                                   color: Colors.black45,
                                   fontSize: ScreenUtil.getInstance().setSp(16)),
                             ),
-                            onSaved: (val) {
-                              username = val;
-                            },
+                            validator: (value) => value.isEmpty
+                                ? 'Username can\'t be empty'
+                                : null,
+                            onSaved: (value) => username = value.trim(),
+                            onChanged: (value) => userValidator = value.trim(),
                           ),
                           SizedBox(
                             height: ScreenUtil.getInstance().setHeight(16),
@@ -78,43 +91,65 @@ class _LoginScreenState extends State<LoginScreen2> {
                           TextFormField(
                             decoration: InputDecoration(
                               enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: const Color(0xFF007FFD))),
+                                  borderSide:
+                                      BorderSide(color: bluePrimaryLight)),
                               hintText: "Password",
                               hintStyle: TextStyle(
                                   color: Colors.black45,
                                   fontSize: ScreenUtil.getInstance().setSp(16)),
                             ),
-                            onSaved: (val) {
-                              username = val;
-                            },
+                            validator: (value) => value.isEmpty
+                                ? 'Password can\'t be empty'
+                                : null,
+                            onSaved: (value) => password = value.trim(),
+                            onChanged: (value) => passValidator = value.trim(),
                           ),
                           SizedBox(
                             height: ScreenUtil.getInstance().setHeight(30),
                           ),
-                          Container(
-                            width: ScreenUtil.getInstance().setWidth(168),
-                            child: OutlineButton(
-                              child: Text(
-                                'Login',
-                                style: TextStyle(
-                                  color: const Color(0xFF007FFD),
-                                  fontSize: ScreenUtil.getInstance().setSp(20),
+                          _isLoading
+                              ? CircularProgressIndicator()
+                              : Container(
+                                  width: ScreenUtil.getInstance().setWidth(168),
+                                  child: userValidator.length > 0 &&
+                                          passValidator.length > 0
+                                      ? RaisedButton(
+                                          child: Text(
+                                            'Login',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: ScreenUtil.getInstance()
+                                                  .setSp(20),
+                                            ),
+                                          ),
+                                          onPressed: () {
+                                            _validateUser();
+                                          },
+                                          color: bluePrimaryLight,
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(18.0)),
+                                        )
+                                      : OutlineButton(
+                                          child: Text(
+                                            'Login',
+                                            style: TextStyle(
+                                              color: bluePrimaryLight,
+                                              fontSize: ScreenUtil.getInstance()
+                                                  .setSp(20),
+                                            ),
+                                          ),
+                                          onPressed: () {
+                                            showErrorMessage();
+                                          },
+                                          borderSide: BorderSide(
+                                              color: bluePrimaryLight),
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(18.0)),
+                                        ),
                                 ),
-                              ),
-                              onPressed: () {
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            BottomNavigationBarController()));
-                              },
-                              borderSide:
-                                  BorderSide(color: const Color(0xFF007FFD)),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0)),
-                            ),
-                          ),
+                          //showErrorMessage()
                         ],
                       ),
                     ),
@@ -122,8 +157,16 @@ class _LoginScreenState extends State<LoginScreen2> {
                   Text(
                     'Forgot your password? RESET',
                     style: TextStyle(
-                        color: const Color(0xFF007FFD),
-                        fontSize: ScreenUtil.getInstance().setSp(14)),
+                      color: bluePrimaryLight,
+                      fontSize: ScreenUtil.getInstance().setSp(14),
+                      shadows: [
+                        Shadow(
+                          blurRadius: 1.0,
+                          color: blueLight,
+                          offset: Offset(1.0, 1.0),
+                        ),
+                      ],
+                    ),
                   ),
                   SizedBox(
                     height: ScreenUtil.getInstance().setHeight(100),
@@ -177,5 +220,81 @@ class _LoginScreenState extends State<LoginScreen2> {
         ),
       ),
     ));
+  }
+
+  Widget showErrorMessage() {
+    if (_errorMessage.length > 0 && _errorMessage != null) {
+      return new Text(
+        _errorMessage,
+        style: TextStyle(
+            fontSize: 13.0,
+            color: Colors.red,
+            height: 1.0,
+            fontWeight: FontWeight.w300),
+      );
+    } else {
+      return new Container(
+        height: 0.0,
+      );
+    }
+  }
+
+  void _validateUser() {
+    setState(() {
+      _isLoading = true;
+    });
+    databaseReference
+        .collection('user')
+        .where('username', isEqualTo: userValidator)
+        .snapshots()
+        .listen((data) async {
+      if (data.documents.length == 0) {
+        _showDialog('datanull');
+        setState(() {
+          _isLoading = false;
+        });
+      } else {
+        print('grower ${data.documents[0].data}');
+        if (data.documents[0]['password'] == passValidator) {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          prefs.setBool('isLogin', true);
+          prefs.setString('username', userValidator);
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => BottomNavigationBarController()));
+        } else {
+          _showDialog('beda');
+        }
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    });
+  }
+
+  void _showDialog(String status) {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: Text("Oops!"),
+          content: status == 'datanull'
+              ? Text("Maaf, Username Anda tidak terdaftar.")
+              : Text("Maaf, Username atau Password Anda salah."),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            FlatButton(
+              child: Text("Ok"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }

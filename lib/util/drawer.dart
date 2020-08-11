@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pandumu/login/screen/login2.dart';
 import 'package:pandumu/profile/screen/profile.dart';
 import 'package:pandumu/profile_pic/screen/profile_pic.dart';
 import 'package:pandumu/util/custom_fade_transition.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyDrawer extends StatelessWidget {
   @override
@@ -77,9 +79,13 @@ class MyDrawer extends StatelessWidget {
                   ListTile(
                     title: Text("Profile"),
                     leading: Icon(Icons.person),
-                    onTap: () {
-                      Navigator.pushReplacement(context,
-                          CustomFadeTransition(widget: ProfileScreen()));
+                    onTap: () async {
+                      var prefs = await SharedPreferences.getInstance();
+                      String username = prefs.getString('username');
+                      Navigator.pushReplacement(
+                          context,
+                          CustomFadeTransition(
+                              widget: ProfileScreen(username: username)));
                     },
                   ),
                   ListTile(
@@ -115,6 +121,16 @@ class MyDrawer extends StatelessWidget {
                   ListTile(
                     title: Text("Help"),
                     onTap: () {},
+                  ),
+                  ListTile(
+                    title: Text("Logout"),
+                    onTap: () async {
+                      var prefs = await SharedPreferences.getInstance();
+                      prefs.setBool('isLogin', false);
+                      prefs.remove('username');
+                      Navigator.pushReplacement(context,
+                          CustomFadeTransition(widget: LoginScreen2()));
+                    },
                   ),
                 ],
               ),

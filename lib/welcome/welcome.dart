@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pandumu/login/screen/login.dart';
+import 'package:pandumu/util/color.dart';
 import 'package:pandumu/util/custom_fade_transition.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -7,7 +8,7 @@ class WelcomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(color: const Color(0xFFF1F5F6)),
+        decoration: BoxDecoration(color: whiteSmoke),
         child: Stack(children: <Widget>[
           Center(
             child: Row(
@@ -49,7 +50,7 @@ class WelcomeScreen extends StatelessWidget {
                       child: Text('Login'),
                       color: Colors.white,
                       elevation: 0,
-                      textColor: Color(0xFF18B8EF),
+                      textColor: blueLight,
                     ),
                   ),
                   Container(
@@ -58,7 +59,7 @@ class WelcomeScreen extends StatelessWidget {
                     child: RaisedButton(
                       onPressed: () {},
                       child: Text('Mulai Jelajahi'),
-                      color: Color(0xFF18B8EF),
+                      color: blueLight,
                       elevation: 0,
                       textColor: Colors.white,
                     ),

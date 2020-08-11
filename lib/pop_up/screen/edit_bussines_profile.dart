@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pandumu/util/color.dart';
 
 class BussinessProfileScreen extends StatefulWidget {
   @override
@@ -18,7 +19,6 @@ class _BussinessProfileScreenState extends State<BussinessProfileScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     titleController?.dispose();
     contentController?.dispose();
@@ -61,10 +61,10 @@ class _BussinessProfileScreenState extends State<BussinessProfileScreen> {
                     data.add(content);
                     Navigator.pop(context, data);
                   },
-                  color: const Color(0xFF00BEFF),
+                  color: blueLightSecond,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16.0),
-                      side: BorderSide(color: const Color(0xFF00BEFF))))),
+                      side: BorderSide(color: blueLightSecond)))),
         ],
         title: OutlineButton(
           child: Text(
@@ -86,7 +86,7 @@ class _BussinessProfileScreenState extends State<BussinessProfileScreen> {
       body: Column(
         children: <Widget>[
           Container(
-            color: const Color(0xFFF1F5F6),
+            color: whiteSmoke,
             padding: EdgeInsets.all(16),
             child: Center(
               child: Text(
@@ -104,7 +104,7 @@ class _BussinessProfileScreenState extends State<BussinessProfileScreen> {
                           child: Text("Title",
                               style: TextStyle(
                                   fontSize: ScreenUtil.getInstance().setSp(16),
-                                  color: Color(0xFF00BEFF))),
+                                  color: blueLightSecond)),
                         )
                       : Container(),
                   title == ""
@@ -135,7 +135,7 @@ class _BussinessProfileScreenState extends State<BussinessProfileScreen> {
                                 style: TextStyle(
                                     fontSize:
                                         ScreenUtil.getInstance().setSp(20),
-                                    color: Color(0xFF00BEFF))),
+                                    color: blueLightSecond)),
                           ),
                           onTap: () {
                             setState(() {
@@ -151,7 +151,7 @@ class _BussinessProfileScreenState extends State<BussinessProfileScreen> {
                           child: Text("Content",
                               style: TextStyle(
                                   fontSize: ScreenUtil.getInstance().setSp(16),
-                                  color: Color(0xFF00BEFF))),
+                                  color: blueLightSecond)),
                         )
                       : Container(),
                   content == ""

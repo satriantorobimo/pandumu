@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pandumu/edit_profile/screen/edit_profile.dart';
+import 'package:pandumu/util/color.dart';
 import 'package:pandumu/util/custom_fade_transition.dart';
+import 'package:pandumu/util/model_register.dart';
 
 class AccountSetupScreen extends StatefulWidget {
+  final UserDataRegisModel userDataRegisModel;
+
+  const AccountSetupScreen({Key key, this.userDataRegisModel})
+      : super(key: key);
   @override
   _AccountSetupScreenState createState() => _AccountSetupScreenState();
 }
@@ -57,7 +63,7 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
   Widget _buildHeaderText(BuildContext context) {
     return Container(
       height: ScreenUtil.getInstance().setHeight(180),
-      decoration: BoxDecoration(color: const Color(0xFF166EC6)),
+      decoration: BoxDecoration(color: bluePrimary),
       child: Center(
         child: RichText(
           text: TextSpan(
@@ -215,22 +221,25 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
         if (_formKey.currentState.validate()) {
           // If the form is valid, display a snackbar. In the real world,
           // you'd often call a server or save the information in a database.
-
+          // TODO: Make a function for check username on DB
+          // ! Check username
+          widget.userDataRegisModel.userName = userNameCtrl.text;
+          widget.userDataRegisModel.name = displayNameCtrl.text;
+          widget.userDataRegisModel.password = passwordCtrl.text;
           Navigator.pushReplacement(
               context,
               CustomFadeTransition(
                   widget: EditPtofileScreen(
-                      userName: userNameCtrl.text,
-                      displayName: displayNameCtrl.text,
-                      password: passwordCtrl.text)));
+                userDataRegisModel: widget.userDataRegisModel,
+              )));
         }
         // Navigator.pushReplacement(
         //     context, CustomFadeTransition(widget: EditPtofileScreen()));
       },
-      color: const Color(0xFF007FFD),
+      color: bluePrimaryLight,
       shape: RoundedRectangleBorder(
           borderRadius: new BorderRadius.circular(18.0),
-          side: BorderSide(color: const Color(0xFF007FFD))));
+          side: BorderSide(color: bluePrimaryLight)));
 
   checkPasswordlength(String text) {
     if (text.length >= 8) {

@@ -2,8 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pandumu/login/screen/login2.dart';
 import 'package:pandumu/otp/screen/otp.dart';
+import 'package:pandumu/util/color.dart';
 import 'package:pandumu/util/custom_fade_transition.dart';
+import 'package:pandumu/util/model_register.dart';
 
 class SignUpScreen extends StatefulWidget {
   @override
@@ -28,7 +31,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     codeController.text = "+62";
     super.initState();
   }
@@ -43,7 +45,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         children: <Widget>[
           Container(
             height: ScreenUtil.getInstance().setHeight(260),
-            decoration: BoxDecoration(color: const Color(0xFF166EC6)),
+            decoration: BoxDecoration(color: bluePrimary),
           ),
           Column(
             children: <Widget>[
@@ -110,7 +112,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     "Enter your mobile phone",
                     style: TextStyle(
                         fontSize: ScreenUtil.getInstance().setSp(14),
-                        color: const Color(0xFF899899)),
+                        color: darkGrey),
                   ),
                   SizedBox(
                     height: ScreenUtil.getInstance().setHeight(10),
@@ -189,7 +191,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           Text(
             'Already have an account?',
             style: TextStyle(
-                color: const Color(0xFF007FFD),
+                color: bluePrimaryLight,
                 fontWeight: FontWeight.bold,
                 fontSize: ScreenUtil.getInstance().setSp(14),
                 fontFamily: 'Roboto'),
@@ -198,14 +200,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
             height: ScreenUtil.getInstance().setHeight(5),
           ),
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Navigator.pushReplacement(
+                  context, CustomFadeTransition(widget: LoginScreen2()));
+            },
             child: Text(
               'Sign In',
               style: TextStyle(
                   decoration: TextDecoration.underline,
                   fontSize: ScreenUtil.getInstance().setSp(20),
                   fontFamily: 'Roboto',
-                  color: const Color(0xFF007FFD),
+                  color: bluePrimaryLight,
                   fontWeight: FontWeight.bold),
             ),
           ),
@@ -265,18 +270,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
         //   isLoading = true;
         // });
         // verifyPhone();
+        // TODO: Make a function for request OTP
+        UserDataRegisModel userDataRegisModel = UserDataRegisModel();
+        userDataRegisModel.phone = numberController.text;
         Navigator.pushReplacement(
             context,
             CustomFadeTransition(
                 widget: OtpScreen(
-              phoneNumber: numberController.text,
+              userDataRegisModel: userDataRegisModel,
               verificationId: this.verificationId,
             )));
       },
-      color: const Color(0xFF007FFD),
+      color: bluePrimaryLight,
       shape: RoundedRectangleBorder(
           borderRadius: new BorderRadius.circular(18.0),
-          side: BorderSide(color: const Color(0xFF007FFD))));
+          side: BorderSide(color: bluePrimaryLight)));
 
   Future<void> verifyPhone() async {
     String telp = "+62" + numberController.text;
@@ -310,11 +318,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
       setState(() {
         isLoading = false;
       });
+      UserDataRegisModel userDataRegisModel = UserDataRegisModel();
+      userDataRegisModel.phone = numberController.text;
       Navigator.pushReplacement(
           context,
           CustomFadeTransition(
               widget: OtpScreen(
-            phoneNumber: numberController.text,
+            userDataRegisModel: userDataRegisModel,
             verificationId: this.verificationId,
           )));
     } else {

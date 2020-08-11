@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pandumu/profile_pic/screen/profile_pic.dart';
+import 'package:pandumu/util/color.dart';
 import 'package:pandumu/util/custom_icons.dart';
 import 'package:pandumu/util/drawer.dart';
 
@@ -97,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   fontFamily: 'Roboto',
                                   fontWeight: FontWeight.w600,
                                   fontSize: ScreenUtil.getInstance().setSp(14),
-                                  color: const Color(0xFF18B8EF)),
+                                  color: blueLight),
                             )),
                       ),
                       SizedBox(
@@ -119,7 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisSize: MainAxisSize.max,
                         children: <Widget>[
                           Container(
-                            padding: const EdgeInsets.only(top: 16),
+                            padding: const EdgeInsets.only(top: 8),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -144,7 +145,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ],
                                   ),
                                 ),
-                                SizedBox(width: 16),
+                                SizedBox(width: 8),
                                 Expanded(
                                   child: Column(
                                     crossAxisAlignment:
@@ -166,7 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   TextStyle(color: Colors.grey))
                                         ],
                                       ),
-                                      SizedBox(height: 8),
+                                      SizedBox(height: 4),
                                       Container(
                                           padding:
                                               const EdgeInsets.only(right: 16),
@@ -179,7 +180,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     color: Color(0xFF2877C6))),
                                             textAlign: TextAlign.left,
                                           )),
-                                      SizedBox(height: 16),
+                                      SizedBox(height: 8),
                                     ],
                                   ),
                                 ),
@@ -202,7 +203,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                           Container(
-                            margin: const EdgeInsets.only(left: 28, top: 8),
+                            margin: const EdgeInsets.only(left: 28, top: 4),
                             child: Row(
                               children: <Widget>[
                                 Icon(Icons.group, size: 20, color: Colors.grey),
@@ -219,7 +220,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           Container(
                             margin: const EdgeInsets.only(
-                                left: 28, bottom: 8, top: 8),
+                                left: 28, bottom: 4, top: 4),
                             child: Row(
                               children: <Widget>[
                                 Icon(Icons.pin_drop,
@@ -235,7 +236,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ],
                             ),
                           ),
-                          SizedBox(height: 8),
+                          SizedBox(height: 4),
                           Container(
                             padding: const EdgeInsets.only(left: 16, right: 16),
                             child: RichText(
@@ -247,15 +248,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                   children: <TextSpan>[
                                     TextSpan(
                                         text: '@trvlbgr ',
-                                        style: TextStyle(
-                                            color: Color(0xFF18B8EF))),
+                                        style: TextStyle(color: blueLight)),
                                     TextSpan(
                                         text: 'bole tolong share yah makasih')
                                   ]),
                               textAlign: TextAlign.justify,
                             ),
                           ),
-                          SizedBox(height: 8),
+                          SizedBox(height: 4),
                           Container(
                             padding: const EdgeInsets.only(left: 16, right: 16),
                             child: Row(
@@ -265,46 +265,51 @@ class _HomeScreenState extends State<HomeScreen> {
                                   children: <Widget>[
                                     Icon(
                                       Custom.chat,
-                                      size: 15,
+                                      size: 16,
                                       color: Colors.grey,
                                     ),
                                     SizedBox(width: 8),
                                     Text(
                                       '999',
                                       style: TextStyle(
-                                          fontSize: 15.0, color: Colors.grey),
+                                          fontSize: 13.0, color: Colors.grey),
                                     ),
                                   ],
                                 ),
                                 Row(
                                   children: <Widget>[
-                                    Icon(Custom.heart_empty,
-                                        size: 15, color: Colors.grey),
+                                    Icon(Custom.forward,
+                                        size: 16, color: Colors.grey),
                                     SizedBox(width: 8),
                                     Text('999',
                                         style: TextStyle(
-                                            fontSize: 15.0, color: Colors.grey))
+                                            fontSize: 13.0, color: Colors.grey))
                                   ],
                                 ),
-                                Icon(Icons.share, size: 15, color: Colors.grey),
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 25),
-                                  child: Icon(Icons.bookmark_border,
-                                      size: 15, color: Colors.grey),
+                                Row(
+                                  children: <Widget>[
+                                    Icon(Custom.heart_empty,
+                                        size: 16, color: Colors.grey),
+                                    SizedBox(width: 8),
+                                    Text('999',
+                                        style: TextStyle(
+                                            fontSize: 13.0, color: Colors.grey))
+                                  ],
                                 ),
+                                Icon(Icons.more_vert,
+                                    size: 16, color: Colors.grey),
                                 Padding(
                                   padding: const EdgeInsets.all(7.0),
                                   child: RaisedButton(
-                                    color: Color(0xFF18B8EF),
+                                    color: blueLight,
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             new BorderRadius.circular(18.0),
-                                        side: BorderSide(
-                                            color: Color(0xFF18B8EF))),
+                                        side: BorderSide(color: blueLight)),
                                     onPressed: () {},
                                     child: Center(
                                       child: Text(
-                                        'IKUTI',
+                                        'JOIN',
                                         style: TextStyle(
                                             color: Colors.white,
                                             fontFamily: 'Roboto'),

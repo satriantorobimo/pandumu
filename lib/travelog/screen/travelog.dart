@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:pandumu/profile_pic/screen/profile_pic.dart';
 import 'package:pandumu/travelog/screen/review/all.dart';
+import 'package:pandumu/travelog/screen/review/blog.dart';
+import 'package:pandumu/travelog/screen/review/log.dart';
 import 'package:pandumu/travelog/screen/review/review.dart';
+import 'package:pandumu/util/color.dart';
 import 'package:pandumu/util/drawer.dart';
+import 'package:pandumu/util/bottom_sheet.dart' as btm;
 
 class TravelogScreen extends StatefulWidget {
   const TravelogScreen({Key key}) : super(key: key);
@@ -47,8 +51,10 @@ class _TravelogScreenState extends State<TravelogScreen>
             fit: BoxFit.contain,
             scale: 4,
           ),
-          backgroundColor: Color(0xFF18B8EF),
-          onPressed: () {},
+          backgroundColor: blueLight,
+          onPressed: () {
+            btm.settingModalBottomSheet(context);
+          },
         ),
         body: NestedScrollView(
           controller: _scrollViewController,
@@ -78,21 +84,21 @@ class _TravelogScreenState extends State<TravelogScreen>
                 snap: true,
                 floating: true,
                 forceElevated: innerBoxIsScrolled,
-              )
+              ),
             ];
           },
           body: Column(
             // Column
             children: <Widget>[
               Container(
-                color: const Color(0xFFF1F5F6), // Tab Bar color change
+                color: whiteSmoke, // Tab Bar color change
                 child: TabBar(
                   isScrollable: false,
                   controller: controller,
                   unselectedLabelColor: Colors.grey,
-                  labelColor: const Color(0xFF18B8EF),
+                  labelColor: blueLight,
                   indicatorWeight: 2,
-                  indicatorColor: const Color(0xFF18B8EF),
+                  indicatorColor: blueLight,
                   onTap: (a) {
                     print(a);
                     if (a == 1) {
@@ -215,8 +221,8 @@ class _TravelogScreenState extends State<TravelogScreen>
                   controller: controller,
                   children: <Widget>[
                     ReviewAllScreen(),
-                    Container(),
-                    Container(),
+                    LogScreen(),
+                    BlogScreen(),
                     ReviewScreen(),
                     Container(),
                   ],

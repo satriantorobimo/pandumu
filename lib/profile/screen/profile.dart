@@ -1,10 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pandumu/util/bottom_sheet.dart' as btm;
+import 'package:pandumu/util/color.dart';
 import 'package:pandumu/util/custom_fade_transition.dart';
 import 'package:pandumu/util/custom_icons.dart';
 import 'package:pandumu/util/navigation_bar_controller.dart';
 
 class ProfileScreen extends StatefulWidget {
+  final String username;
+
+  const ProfileScreen({Key key, this.username}) : super(key: key);
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
 }
@@ -12,14 +18,23 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen>
     with SingleTickerProviderStateMixin {
   TabController controller;
-
   int _index;
+  final databaseReference = Firestore.instance;
+  bool loading = false;
+  String name = '',
+      username = '',
+      bio = '',
+      bpTitle = '',
+      bpContent = '',
+      joined = '',
+      location = '';
 
   @override
   void initState() {
     setState(() {
       _index = 3;
     });
+    getData();
     controller = TabController(vsync: this, length: 4, initialIndex: 3);
     controller.addListener(_handleTabSelection);
     super.initState();
@@ -42,8 +57,10 @@ class _ProfileScreenState extends State<ProfileScreen>
           fit: BoxFit.contain,
           scale: 4,
         ),
-        backgroundColor: Color(0xFF18B8EF),
-        onPressed: () {},
+        backgroundColor: blueLight,
+        onPressed: () {
+          btm.settingModalBottomSheet(context);
+        },
       ),
       body: Stack(
         children: <Widget>[
@@ -64,8 +81,8 @@ class _ProfileScreenState extends State<ProfileScreen>
                 child: TabBar(
                   controller: controller,
                   unselectedLabelColor: Colors.grey,
-                  labelColor: const Color(0xFF18B8EF),
-                  indicatorColor: const Color(0xFF18B8EF),
+                  labelColor: blueLight,
+                  indicatorColor: blueLight,
                   tabs: <Widget>[
                     Tab(
                       child: Image.asset(
@@ -166,38 +183,40 @@ class _ProfileScreenState extends State<ProfileScreen>
 
   Widget _profile() {
     return SingleChildScrollView(
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: <Widget>[
-          Container(
-              padding: EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    blurRadius: 5,
-                  ),
-                ],
-              ),
-              width: double.infinity,
-              child: _cardOne()),
-          SizedBox(height: 10),
-          Container(
-              padding: EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.2),
-                    blurRadius: 5,
-                  ),
-                ],
-              ),
-              width: double.infinity,
-              child: _cardTwo())
-        ],
-      ),
+      child: loading
+          ? Container(width: 50, height: 50, child: CircularProgressIndicator())
+          : Column(
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                Container(
+                    padding: EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          blurRadius: 5,
+                        ),
+                      ],
+                    ),
+                    width: double.infinity,
+                    child: _cardOne()),
+                SizedBox(height: 10),
+                Container(
+                    padding: EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.2),
+                          blurRadius: 5,
+                        ),
+                      ],
+                    ),
+                    width: double.infinity,
+                    child: _cardTwo())
+              ],
+            ),
     );
   }
 
@@ -210,12 +229,12 @@ class _ProfileScreenState extends State<ProfileScreen>
   Widget _cardTwo() => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text("Title",
+          Text(bpTitle,
               style: TextStyle(
                   fontSize: ScreenUtil.getInstance().setSp(20),
-                  color: Color(0xFF00BEFF))),
+                  color: bluePrimary)),
           SizedBox(height: 20.0),
-          Text("Content",
+          Text(bpContent,
               style: TextStyle(
                   fontSize: ScreenUtil.getInstance().setSp(14),
                   color: Colors.black))
@@ -232,11 +251,11 @@ class _ProfileScreenState extends State<ProfileScreen>
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('Kemala Pagista',
+                  Text(name,
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
                   SizedBox(height: 5.0),
-                  Text('@pagista', style: TextStyle(color: Colors.grey)),
+                  Text('@$username', style: TextStyle(color: Colors.grey)),
                   SizedBox(height: 10.0),
                   Row(
                     children: <Widget>[
@@ -280,18 +299,18 @@ class _ProfileScreenState extends State<ProfileScreen>
               ),
               OutlineButton(
                   child: Text("Edit Profile",
-                      style: TextStyle(fontSize: 12, color: Color(0xFF007FFD))),
+                      style: TextStyle(fontSize: 12, color: bluePrimaryLight)),
                   onPressed: () {},
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0)),
-                  borderSide: BorderSide(color: Color(0xFF007FFD)))
+                  borderSide: BorderSide(color: bluePrimaryLight))
             ],
           ),
           SizedBox(
             height: 10.0,
           ),
           Text(
-            "sanguinis koleris. #travelblogger, happy #diver. bukan naq pencinta alam tapi cinta kamu~ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed bibendum accumsan ligula.",
+            bio,
             textAlign: TextAlign.left,
             style: TextStyle(fontSize: 16),
           ),
@@ -304,7 +323,7 @@ class _ProfileScreenState extends State<ProfileScreen>
               ),
               Text(
                 "pagista.tumblr.com",
-                style: TextStyle(fontSize: 12, color: Color(0xFF00BEFF)),
+                style: TextStyle(fontSize: 12, color: blueLightSecond),
               ),
               SizedBox(
                 width: 16.0,
@@ -313,7 +332,7 @@ class _ProfileScreenState extends State<ProfileScreen>
               SizedBox(
                 width: 5.0,
               ),
-              Text("Tobelo, Halmahera Utara",
+              Text(location,
                   style: TextStyle(fontSize: 12, color: Colors.grey)),
             ],
           ),
@@ -327,7 +346,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                 width: 5.0,
               ),
               Text(
-                "Joined May 2019",
+                "Joined $joined",
                 style: TextStyle(fontSize: 12, color: Colors.grey),
               ),
             ],
@@ -366,4 +385,27 @@ class _ProfileScreenState extends State<ProfileScreen>
           ),
         ],
       );
+
+  void getData() {
+    setState(() {
+      loading = true;
+    });
+    databaseReference
+        .collection('user')
+        .where('username', isEqualTo: widget.username)
+        .snapshots()
+        .listen((data) async {
+      print('grower ${data.documents[0].data['password']}');
+      setState(() {
+        name = data.documents[0].data['name'];
+        username = data.documents[0].data['username'];
+        bio = data.documents[0].data['bio'];
+        bpTitle = data.documents[0].data['bpTitle'];
+        bpContent = data.documents[0].data['bpContent'];
+        joined = data.documents[0].data['joined'];
+        location = data.documents[0].data['location'];
+        loading = false;
+      });
+    });
+  }
 }

@@ -2,14 +2,18 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pandumu/account_setup/screen/account_setup.dart';
+import 'package:pandumu/login/screen/login2.dart';
+import 'package:pandumu/util/color.dart';
 import 'package:pandumu/util/custom_fade_transition.dart';
+import 'package:pandumu/util/model_register.dart';
 import 'package:pin_input_text_field/pin_input_text_field.dart';
 
 class OtpScreen extends StatefulWidget {
-  final String phoneNumber;
   final String verificationId;
 
-  const OtpScreen({Key key, this.phoneNumber, this.verificationId})
+  final UserDataRegisModel userDataRegisModel;
+
+  const OtpScreen({Key key, this.verificationId, this.userDataRegisModel})
       : super(key: key);
 
   @override
@@ -35,7 +39,7 @@ class _OtpScreenState extends State<OtpScreen> {
         children: <Widget>[
           Container(
             height: ScreenUtil.getInstance().setHeight(260),
-            decoration: BoxDecoration(color: const Color(0xFF166EC6)),
+            decoration: BoxDecoration(color: bluePrimary),
           ),
           Column(
             children: <Widget>[
@@ -105,7 +109,7 @@ class _OtpScreenState extends State<OtpScreen> {
                           text: 'Enter the code sent to ',
                           style: TextStyle(
                               fontSize: ScreenUtil.getInstance().setSp(14),
-                              color: const Color(0xFF899899)),
+                              color: darkGrey),
                           children: <TextSpan>[
                             TextSpan(
                                 text: ' +62',
@@ -115,7 +119,7 @@ class _OtpScreenState extends State<OtpScreen> {
                                         ScreenUtil.getInstance().setSp(14),
                                     fontWeight: FontWeight.bold)),
                             TextSpan(
-                                text: widget.phoneNumber,
+                                text: widget.userDataRegisModel.phone,
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontSize:
@@ -192,7 +196,7 @@ class _OtpScreenState extends State<OtpScreen> {
           Text(
             'Already have an account?',
             style: TextStyle(
-                color: const Color(0xFF007FFD),
+                color: bluePrimaryLight,
                 fontWeight: FontWeight.bold,
                 fontSize: ScreenUtil.getInstance().setSp(14),
                 fontFamily: 'Roboto'),
@@ -201,14 +205,17 @@ class _OtpScreenState extends State<OtpScreen> {
             height: ScreenUtil.getInstance().setHeight(5),
           ),
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Navigator.pushReplacement(
+                  context, CustomFadeTransition(widget: LoginScreen2()));
+            },
             child: Text(
               'Sign In',
               style: TextStyle(
                   decoration: TextDecoration.underline,
                   fontSize: ScreenUtil.getInstance().setSp(20),
                   fontFamily: 'Roboto',
-                  color: const Color(0xFF007FFD),
+                  color: bluePrimaryLight,
                   fontWeight: FontWeight.bold),
             ),
           ),
@@ -267,14 +274,19 @@ class _OtpScreenState extends State<OtpScreen> {
         // setState(() {
         //   isLoading = true;
         // });
+        // TODO: Make a function for verify OTP
         // verifyPhone();
         Navigator.pushReplacement(
-            context, CustomFadeTransition(widget: AccountSetupScreen()));
+            context,
+            CustomFadeTransition(
+                widget: AccountSetupScreen(
+              userDataRegisModel: widget.userDataRegisModel,
+            )));
       },
-      color: const Color(0xFF007FFD),
+      color: bluePrimaryLight,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(18.0),
-          side: BorderSide(color: const Color(0xFF007FFD))));
+          side: BorderSide(color: bluePrimaryLight)));
 
   signIn() async {
     try {

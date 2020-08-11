@@ -1,27 +1,24 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
+import 'package:pandumu/home/screen/home.dart';
 import 'package:pandumu/pop_up/screen/edit_bod_screen.dart';
 import 'package:pandumu/pop_up/screen/edit_bussines_profile.dart';
 import 'package:pandumu/pop_up/screen/edit_location_screen.dart';
-import 'package:pandumu/profile/screen/profile.dart';
+import 'package:pandumu/util/color.dart';
 import 'package:pandumu/util/crop_circle.dart';
 import 'package:pandumu/util/crop_rectangle.dart';
 import 'package:pandumu/util/custom_fade_transition.dart';
+import 'package:pandumu/util/model_register.dart';
 
 class EditPtofileScreen extends StatefulWidget {
-  final String userName;
-  final String displayName;
-  final String password;
+  final UserDataRegisModel userDataRegisModel;
 
-  const EditPtofileScreen(
-      {Key key,
-      @required this.userName,
-      @required this.displayName,
-      @required this.password})
-      : super(key: key);
+  const EditPtofileScreen({Key key, this.userDataRegisModel}) : super(key: key);
 
   @override
   _EditPtofileScreenState createState() => _EditPtofileScreenState();
@@ -36,6 +33,15 @@ class _EditPtofileScreenState extends State<EditPtofileScreen> {
   String getLocation = "";
   String getTitle = "";
   String getContent = "";
+
+  final bioController = TextEditingController();
+  final databaseReference = Firestore.instance;
+
+  @override
+  void dispose() {
+    bioController.dispose();
+    super.dispose();
+  }
 
   Future getImageHeader(bool camera) async {
     var image;
@@ -141,8 +147,7 @@ class _EditPtofileScreenState extends State<EditPtofileScreen> {
                 ),
               ),
               onPressed: () {
-                Navigator.pushReplacement(
-                    context, CustomFadeTransition(widget: ProfileScreen()));
+                _saveDataRegister();
               },
               borderSide: BorderSide(color: Colors.white),
               shape: new RoundedRectangleBorder(
@@ -163,9 +168,7 @@ class _EditPtofileScreenState extends State<EditPtofileScreen> {
                 },
                 child: Container(
                   height: ScreenUtil.getInstance().setHeight(125),
-                  color: imageHeader
-                      ? Colors.transparent
-                      : const Color(0xFF899899),
+                  color: imageHeader ? Colors.transparent : darkGrey,
                   child: imageHeader
                       ? Image.file(_imageHeader, fit: BoxFit.cover)
                       : Center(
@@ -201,9 +204,9 @@ class _EditPtofileScreenState extends State<EditPtofileScreen> {
                             style: TextStyle(
                                 fontSize: ScreenUtil.getInstance().setSp(16))),
                       ),
-                      Text("@" + widget.userName,
+                      Text("@" + widget.userDataRegisModel.userName,
                           style: TextStyle(
-                              color: const Color(0xFF00BEFF),
+                              color: blueLightSecond,
                               fontSize: ScreenUtil.getInstance().setSp(16))),
                     ],
                   ),
@@ -227,9 +230,9 @@ class _EditPtofileScreenState extends State<EditPtofileScreen> {
                               style: TextStyle(
                                   fontSize:
                                       ScreenUtil.getInstance().setSp(16)))),
-                      Text(widget.displayName,
+                      Text(widget.userDataRegisModel.name,
                           style: TextStyle(
-                              color: const Color(0xFF00BEFF),
+                              color: blueLightSecond,
                               fontSize: ScreenUtil.getInstance().setSp(16))),
                     ],
                   ),
@@ -259,6 +262,7 @@ class _EditPtofileScreenState extends State<EditPtofileScreen> {
                           keyboardType: TextInputType.text,
                           maxLines: 8,
                           maxLength: 140,
+                          controller: bioController,
                           decoration: InputDecoration.collapsed(
                               hintText: "Briefly tell about yourself",
                               hintStyle: TextStyle(
@@ -297,7 +301,7 @@ class _EditPtofileScreenState extends State<EditPtofileScreen> {
                             style: TextStyle(
                                 color: getLocation == ""
                                     ? Colors.grey
-                                    : Color(0xFF00BEFF),
+                                    : blueLightSecond,
                                 fontStyle:
                                     getLocation == "" ? FontStyle.italic : null,
                                 fontSize: ScreenUtil.getInstance().setSp(16))),
@@ -349,7 +353,7 @@ class _EditPtofileScreenState extends State<EditPtofileScreen> {
                             style: TextStyle(
                                 color: getBod == ""
                                     ? Colors.grey
-                                    : Color(0xFF00BEFF),
+                                    : blueLightSecond,
                                 fontStyle:
                                     getBod == "" ? FontStyle.italic : null,
                                 fontSize: ScreenUtil.getInstance().setSp(16))),
@@ -428,7 +432,7 @@ class _EditPtofileScreenState extends State<EditPtofileScreen> {
                         child: Text(getTitle,
                             style: TextStyle(
                                 fontSize: ScreenUtil.getInstance().setSp(20),
-                                color: Color(0xFF00BEFF))),
+                                color: blueLightSecond)),
                       )
                     : Container(),
                 getContent != ""
@@ -478,5 +482,30 @@ class _EditPtofileScreenState extends State<EditPtofileScreen> {
         ],
       ),
     );
+  }
+
+  void _saveDataRegister() async {
+    DateTime now = DateTime.now();
+    String formattedDate = DateFormat('MMM yyyy').format(now);
+
+    DocumentReference ref = await databaseReference.collection("user").add({
+      'username': widget.userDataRegisModel.userName,
+      'name': widget.userDataRegisModel.name,
+      'password': widget.userDataRegisModel.password,
+      'email': widget.userDataRegisModel.email,
+      'phone': widget.userDataRegisModel.phone,
+      'bio': bioController.text,
+      'location': getLocation,
+      'bod': getBod,
+      'bodShow': false,
+      'bpTitle': getTitle,
+      'bpContent': getContent,
+      'gender': '',
+      'joined': formattedDate
+    }).catchError((e) {
+      print('Error add data : $e');
+    });
+    Navigator.pushReplacement(
+        context, CustomFadeTransition(widget: HomeScreen()));
   }
 }

@@ -3,6 +3,7 @@ import 'package:pandumu/ask_locals/screen/ask/ask.dart';
 import 'package:pandumu/ask_locals/screen/chat/chat.dart';
 import 'package:pandumu/ask_locals/screen/meet_traveler/meet_traveler.dart';
 import 'package:pandumu/profile_pic/screen/profile_pic.dart';
+import 'package:pandumu/util/color.dart';
 import 'package:pandumu/util/drawer.dart';
 
 class AskLocalsScreen extends StatefulWidget {
@@ -67,20 +68,20 @@ class _AskLocalsScreenState extends State<AskLocalsScreen>
         //   fit: BoxFit.contain,
         //   scale: 4,
         // ),
-        backgroundColor: Color(0xFF18B8EF),
+        backgroundColor: blueLight,
         onPressed: () {},
       ),
       body: Column(
         // Column
         children: <Widget>[
           Container(
-            color: const Color(0xFFF1F5F6), // Tab Bar color change
+            color: whiteSmoke, // Tab Bar color change
             child: TabBar(
               controller: controller,
               unselectedLabelColor: Colors.grey,
-              labelColor: const Color(0xFF18B8EF),
+              labelColor: blueLight,
               indicatorWeight: 2,
-              indicatorColor: const Color(0xFF18B8EF),
+              indicatorColor: blueLight,
               tabs: <Widget>[
                 Tab(
                   child: Text("Ask Locals"),

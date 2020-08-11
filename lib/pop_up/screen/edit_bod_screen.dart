@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:pandumu/util/color.dart';
 
 class EditBodScreen extends StatefulWidget {
   final String currentBod;
@@ -84,7 +85,7 @@ class _EditBodScreenState extends State<EditBodScreen> {
     ScreenUtil.instance = ScreenUtil(width: 360, height: 640)..init(context);
     return Scaffold(
       resizeToAvoidBottomPadding: false,
-      backgroundColor: const Color(0xFFF1F5F6),
+      backgroundColor: whiteSmoke,
       appBar: AppBar(
         elevation: 0,
         leading: GestureDetector(
@@ -139,7 +140,7 @@ class _EditBodScreenState extends State<EditBodScreen> {
                           style: TextStyle(
                               fontSize: ScreenUtil.getInstance().setSp(14),
                               color:
-                                  !datePick ? Colors.grey : Color(0xFF00BEFF))),
+                                  !datePick ? Colors.grey : blueLightSecond)),
                     ),
                   )
                 ],
@@ -155,7 +156,7 @@ class _EditBodScreenState extends State<EditBodScreen> {
               style: TextStyle(
                   fontSize: ScreenUtil.getInstance().setSp(18),
                   fontWeight: FontWeight.bold,
-                  color: const Color(0xFF899899)),
+                  color: darkGrey),
             ),
           ),
           SizedBox(
@@ -337,7 +338,7 @@ class _EditBodScreenState extends State<EditBodScreen> {
     return BoxDecoration(
         color: Colors.white,
         border: Border(
-          bottom: BorderSide(width: 1.0, color: const Color(0xFF899899)),
+          bottom: BorderSide(width: 1.0, color: darkGrey),
         ));
   }
 
@@ -366,8 +367,8 @@ class _EditBodScreenState extends State<EditBodScreen> {
       onPressed: () {
         Navigator.pop(context, formattedDate);
       },
-      color: const Color(0xFF00BEFF),
+      color: blueLightSecond,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.0),
-          side: BorderSide(color: const Color(0xFF00BEFF))));
+          side: BorderSide(color: blueLightSecond)));
 }

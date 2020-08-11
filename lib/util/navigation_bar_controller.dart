@@ -5,7 +5,7 @@ import 'package:pandumu/home/screen/home.dart';
 import 'package:pandumu/travelmart/screen/travelmart.dart';
 import 'package:pandumu/travelog/screen/travelog.dart';
 import 'package:pandumu/tripmate/screen/tripmate.dart';
-import 'package:pandumu/util/drawer.dart';
+import 'package:pandumu/util/color.dart';
 
 class BottomNavigationBarController extends StatefulWidget {
   @override
@@ -41,7 +41,7 @@ class _BottomNavigationBarControllerState
         onTap: (int index) => setState(() => _selectedIndex = index),
         currentIndex: selectedIndex,
         backgroundColor: Colors.white,
-        selectedItemColor: const Color(0xFF18B8EF),
+        selectedItemColor: blueLight,
         unselectedItemColor: Colors.grey,
         type: BottomNavigationBarType.fixed,
         elevation: 0,

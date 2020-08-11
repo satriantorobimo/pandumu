@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pandumu/util/color.dart';
 
 class EditLocationScreen extends StatefulWidget {
   final String currentLocation;
@@ -20,7 +21,7 @@ class _EditLocationScreenState extends State<EditLocationScreen> {
   Widget build(BuildContext context) {
     ScreenUtil.instance = ScreenUtil(width: 360, height: 640)..init(context);
     return Scaffold(
-      backgroundColor: const Color(0xFFF1F5F6),
+      backgroundColor: whiteSmoke,
       appBar: AppBar(
         elevation: 0,
         leading: GestureDetector(
@@ -96,7 +97,7 @@ class _EditLocationScreenState extends State<EditLocationScreen> {
                         stream: Firestore.instance
                             .collection("district")
                             .orderBy("nama")
-                            // .where("nama", isGreaterThanOrEqualTo: search)
+                            .where("nama", isGreaterThanOrEqualTo: search)
                             // .where("nama", isLessThanOrEqualTo: search)
                             .snapshots(),
                         builder:
@@ -156,8 +157,8 @@ class _EditLocationScreenState extends State<EditLocationScreen> {
       onPressed: () {
         Navigator.pop(context, locationController.text);
       },
-      color: const Color(0xFF00BEFF),
+      color: blueLightSecond,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.0),
-          side: BorderSide(color: const Color(0xFF00BEFF))));
+          side: BorderSide(color: blueLightSecond)));
 }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pandumu/profile_pic/screen/profile_pic.dart';
-import 'package:pandumu/tripmate/screen/feeds/feeds.dart';
+import 'package:pandumu/tripmate/screen/feeds/invitations.dart';
 import 'package:pandumu/tripmate/screen/joined/joined.dart';
+import 'package:pandumu/util/color.dart';
 import 'package:pandumu/util/drawer.dart';
 
 class TripMateScreen extends StatefulWidget {
@@ -62,22 +63,22 @@ class _TripMateScreenState extends State<TripMateScreen>
         // Column
         children: <Widget>[
           Container(
-            color: const Color(0xFFF1F5F6), // Tab Bar color change
+            color: whiteSmoke, // Tab Bar color change
             child: TabBar(
               controller: controller,
               unselectedLabelColor: Colors.grey,
-              labelColor: const Color(0xFF18B8EF),
+              labelColor: blueLight,
               indicatorWeight: 2,
-              indicatorColor: const Color(0xFF18B8EF),
+              indicatorColor: blueLight,
               tabs: <Widget>[
                 Tab(
-                  child: Text("Feeds"),
+                  child: Text("Invitations"),
                 ),
                 Tab(
                   child: Text("Joined"),
                 ),
                 Tab(
-                  child: Text("Ajak Jalan"),
+                  child: Text("Let's Trip!"),
                 ),
               ],
             ),
@@ -89,7 +90,7 @@ class _TripMateScreenState extends State<TripMateScreen>
               physics: NeverScrollableScrollPhysics(),
               controller: controller,
               children: <Widget>[
-                FeedsScreen(),
+                InvitationsScreen(),
                 JoinedScreen(),
                 Container(),
               ],

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:pandumu/util/color.dart';
 import 'package:pandumu/util/custom_icons.dart';
+import 'package:pandumu/util/image_crop.dart';
 
-class ReviewAllScreen extends StatefulWidget {
+class BlogScreen extends StatefulWidget {
   @override
-  _ReviewAllScreenState createState() => _ReviewAllScreenState();
+  _BlogScreenState createState() => _BlogScreenState();
 }
 
-class _ReviewAllScreenState extends State<ReviewAllScreen> {
+class _BlogScreenState extends State<BlogScreen> {
   final List<int> numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   @override
@@ -42,12 +44,6 @@ class _ReviewAllScreenState extends State<ReviewAllScreen> {
                               ),
                               child: Icon(Icons.person),
                             ),
-                            SizedBox(height: 4),
-                            Image.asset(
-                              "assets/icons/travelog/log_off.png",
-                              fit: BoxFit.contain,
-                              scale: 2,
-                            )
                           ],
                         ),
                       ),
@@ -76,11 +72,28 @@ class _ReviewAllScreenState extends State<ReviewAllScreen> {
                                 child: RichText(
                                   text: TextSpan(
                                       text:
-                                          'Really want to do solo travelling ke Indonesia Timur... apa daya working days gw jahanaaam hmm~',
+                                          'Destinasi Wisata Keluarga Terbaru di Malang, Surganya Pencinta Fotografi',
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          color: bluePrimary,
+                                          fontWeight: FontWeight.bold)),
+                                  textAlign: TextAlign.left,
+                                )),
+                            SizedBox(height: 4),
+                            Container(
+                                padding: const EdgeInsets.only(right: 16),
+                                child: RichText(
+                                  text: TextSpan(
+                                      text:
+                                          'Malang bisa jadi destinasi sempurna. Wisatanya selalu baru. Kulinernya banyak bikin kangen. Kunjungi daftar destinasi wisata keluarga terbaru di Malang ini.',
                                       style: TextStyle(
                                           fontSize: 16, color: Colors.black)),
                                   textAlign: TextAlign.left,
                                 )),
+                            SizedBox(height: 4),
+                            ImageCrop(
+                                url:
+                                    'https://photographycourse.net/wp-content/uploads/2014/11/Landscape-Photography-steps.jpg'),
                             SizedBox(height: 8),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,

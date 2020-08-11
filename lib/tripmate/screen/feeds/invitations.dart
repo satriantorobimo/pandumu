@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:pandumu/util/color.dart';
 import 'package:pandumu/util/custom_icons.dart';
 
-class FeedsScreen extends StatefulWidget {
+class InvitationsScreen extends StatefulWidget {
   @override
-  _FeedsScreenState createState() => _FeedsScreenState();
+  _InvitationsScreenState createState() => _InvitationsScreenState();
 }
 
-class _FeedsScreenState extends State<FeedsScreen> {
-  final List<int> numbers = [1];
+class _InvitationsScreenState extends State<InvitationsScreen> {
+  final List<int> numbers = [1, 2, 3, 4];
 
   @override
   Widget build(BuildContext context) {
@@ -15,13 +16,12 @@ class _FeedsScreenState extends State<FeedsScreen> {
       color: Colors.white,
       child: ListView.builder(
         shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, position) {
           return Column(
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.only(top: 16),
+                padding: const EdgeInsets.only(top: 8),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,7 +44,7 @@ class _FeedsScreenState extends State<FeedsScreen> {
                         ],
                       ),
                     ),
-                    SizedBox(width: 16),
+                    SizedBox(width: 8),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,7 +63,7 @@ class _FeedsScreenState extends State<FeedsScreen> {
                                   style: TextStyle(color: Colors.grey))
                             ],
                           ),
-                          SizedBox(height: 8),
+                          SizedBox(height: 4),
                           Container(
                               padding: const EdgeInsets.only(right: 16),
                               child: RichText(
@@ -75,7 +75,7 @@ class _FeedsScreenState extends State<FeedsScreen> {
                                         color: Color(0xFF2877C6))),
                                 textAlign: TextAlign.left,
                               )),
-                          SizedBox(height: 16),
+                          SizedBox(height: 8),
                         ],
                       ),
                     ),
@@ -97,7 +97,7 @@ class _FeedsScreenState extends State<FeedsScreen> {
                 ),
               ),
               Container(
-                margin: const EdgeInsets.only(left: 28, top: 8),
+                margin: const EdgeInsets.only(left: 28, top: 4),
                 child: Row(
                   children: <Widget>[
                     Icon(Icons.group, size: 20, color: Colors.grey),
@@ -113,7 +113,7 @@ class _FeedsScreenState extends State<FeedsScreen> {
                 ),
               ),
               Container(
-                margin: const EdgeInsets.only(left: 28, bottom: 8, top: 8),
+                margin: const EdgeInsets.only(left: 28, bottom: 4, top: 4),
                 child: Row(
                   children: <Widget>[
                     Icon(Icons.pin_drop, size: 20, color: Colors.grey),
@@ -128,7 +128,7 @@ class _FeedsScreenState extends State<FeedsScreen> {
                   ],
                 ),
               ),
-              SizedBox(height: 8),
+              SizedBox(height: 4),
               Container(
                 padding: const EdgeInsets.only(left: 16, right: 16),
                 child: RichText(
@@ -139,13 +139,13 @@ class _FeedsScreenState extends State<FeedsScreen> {
                       children: <TextSpan>[
                         TextSpan(
                             text: '@trvlbgr ',
-                            style: TextStyle(color: Color(0xFF18B8EF))),
+                            style: TextStyle(color: blueLight)),
                         TextSpan(text: 'bole tolong share yah makasih')
                       ]),
                   textAlign: TextAlign.justify,
                 ),
               ),
-              SizedBox(height: 8),
+              SizedBox(height: 4),
               Container(
                 padding: const EdgeInsets.only(left: 16, right: 16),
                 child: Row(
@@ -155,42 +155,46 @@ class _FeedsScreenState extends State<FeedsScreen> {
                       children: <Widget>[
                         Icon(
                           Custom.chat,
-                          size: 15,
+                          size: 16,
                           color: Colors.grey,
                         ),
                         SizedBox(width: 8),
                         Text(
                           '999',
-                          style: TextStyle(fontSize: 15.0, color: Colors.grey),
+                          style: TextStyle(fontSize: 13.0, color: Colors.grey),
                         ),
                       ],
                     ),
                     Row(
                       children: <Widget>[
-                        Icon(Custom.heart_empty, size: 15, color: Colors.grey),
+                        Icon(Custom.forward, size: 16, color: Colors.grey),
                         SizedBox(width: 8),
                         Text('999',
                             style:
-                                TextStyle(fontSize: 15.0, color: Colors.grey))
+                                TextStyle(fontSize: 13.0, color: Colors.grey))
                       ],
                     ),
-                    Icon(Icons.share, size: 15, color: Colors.grey),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 25),
-                      child: Icon(Icons.bookmark_border,
-                          size: 15, color: Colors.grey),
+                    Row(
+                      children: <Widget>[
+                        Icon(Custom.heart_empty, size: 16, color: Colors.grey),
+                        SizedBox(width: 8),
+                        Text('999',
+                            style:
+                                TextStyle(fontSize: 13.0, color: Colors.grey))
+                      ],
                     ),
+                    Icon(Icons.more_vert, size: 16, color: Colors.grey),
                     Padding(
                       padding: const EdgeInsets.all(7.0),
                       child: RaisedButton(
-                        color: Color(0xFF18B8EF),
+                        color: blueLight,
                         shape: RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(18.0),
-                            side: BorderSide(color: Color(0xFF18B8EF))),
-                        onPressed: () {},
+                            borderRadius: BorderRadius.circular(18.0),
+                            side: BorderSide(color: blueLight)),
+                        onPressed: () => _joinTrip(context),
                         child: Center(
                           child: Text(
-                            'IKUTI',
+                            'JOIN',
                             style: TextStyle(
                                 color: Colors.white, fontFamily: 'Roboto'),
                           ),
@@ -206,6 +210,73 @@ class _FeedsScreenState extends State<FeedsScreen> {
         },
         itemCount: numbers.length,
       ),
+    );
+  }
+
+  _joinTrip(BuildContext context) {
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(8.0))),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Center(
+              child: Text('Sure you want to join the Trip?',
+                  style: TextStyle(fontSize: 16, color: Color(0xFF2877C6))),
+            ),
+            SizedBox(height: 24),
+            Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Container(
+                    height: 45,
+                    width: 100,
+                    padding: const EdgeInsets.all(7.0),
+                    child: RaisedButton(
+                      color: blueLight,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          side: BorderSide(color: blueLight)),
+                      onPressed: () => Navigator.pop(context),
+                      child: Center(
+                        child: Text(
+                          'JOIN',
+                          style: TextStyle(
+                              color: Colors.white, fontFamily: 'Roboto'),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    height: 45,
+                    width: 100,
+                    padding: const EdgeInsets.all(7.0),
+                    child: RaisedButton(
+                      color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          side: BorderSide(color: blueLight)),
+                      onPressed: () => Navigator.pop(context),
+                      child: Center(
+                        child: Text(
+                          'CANCEL',
+                          style:
+                              TextStyle(color: blueLight, fontFamily: 'Roboto'),
+                        ),
+                      ),
+                    ),
+                  ),
+                ]),
+          ],
+        ));
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pandumu/signup/screen/signup.dart';
+import 'package:pandumu/util/color.dart';
 import 'package:pandumu/util/custom_fade_transition.dart';
 import 'package:pandumu/util/navigation_bar_controller.dart';
 
@@ -89,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Text(
                         'Login',
                         style: TextStyle(
-                          color: const Color(0xFF007FFD),
+                          color: bluePrimaryLight,
                           fontSize: ScreenUtil.getInstance().setSp(20),
                         ),
                       ),
@@ -100,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 builder: (context) =>
                                     BottomNavigationBarController()));
                       },
-                      borderSide: BorderSide(color: const Color(0xFF007FFD)),
+                      borderSide: BorderSide(color: bluePrimaryLight),
                       shape: new RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(18.0)),
                     ),
@@ -111,7 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Text(
                     'Forgot your password? RESET',
                     style: TextStyle(
-                        color: const Color(0xFF007FFD),
+                        color: bluePrimaryLight,
                         fontSize: ScreenUtil.getInstance().setSp(16),
                         fontWeight: FontWeight.bold),
                   ),

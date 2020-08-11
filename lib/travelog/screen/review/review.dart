@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pandumu/util/color.dart';
 import 'package:pandumu/util/custom_icons.dart';
 
 class ReviewScreen extends StatefulWidget {
@@ -38,8 +39,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                     },
                     child: Text(
                       "All",
-                      style: TextStyle(
-                          color: tab1 ? const Color(0xFF18B8EF) : Colors.grey),
+                      style: TextStyle(color: tab1 ? blueLight : Colors.grey),
                     ),
                   ),
                   GestureDetector(
