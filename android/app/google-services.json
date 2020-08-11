@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "954499534967",
+    "firebase_url": "https://pandumu-52899.firebaseio.com",
+    "project_id": "pandumu-52899",
+    "storage_bucket": "pandumu-52899.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:954499534967:android:bd2a716f6e5bcae4ffb672",
+        "android_client_info": {
+          "package_name": "hwconsultant.pandumu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "954499534967-n9r41ql6a5nj0o6gc2iinup3db8lmn5b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "hwconsultant.pandumu",
+            "certificate_hash": "4ac589d02b5b38f7be46d46a8d8b635a079fd745"
+          }
+        },
+        {
+          "client_id": "954499534967-d5930nl8m17krahcdll6um489ucmakbt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0Q1PrehXoxlgpVcnnyu1ZpcelmQ75Wcg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "954499534967-d5930nl8m17krahcdll6um489ucmakbt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
