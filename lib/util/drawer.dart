@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pandumu/login/screen/login2.dart';
-import 'package:pandumu/profile/screen/profile.dart';
-import 'package:pandumu/profile_pic/screen/profile_pic.dart';
+import 'package:pandumu/screen/login/screen/login2.dart';
+import 'package:pandumu/screen/profile/screen/profile.dart';
+import 'package:pandumu/screen/profile_pic/screen/profile_pic.dart';
 import 'package:pandumu/util/custom_fade_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -81,11 +81,11 @@ class MyDrawer extends StatelessWidget {
                     leading: Icon(Icons.person),
                     onTap: () async {
                       var prefs = await SharedPreferences.getInstance();
-                      String username = prefs.getString('username');
+                      String userid = prefs.getString('userid');
                       Navigator.pushReplacement(
                           context,
                           CustomFadeTransition(
-                              widget: ProfileScreen(username: username)));
+                              widget: ProfileScreen(userid: userid)));
                     },
                   ),
                   ListTile(

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pandumu/form/screen/form_blog.dart';
-import 'package:pandumu/form/screen/form_log.dart';
-import 'package:pandumu/form/screen/form_review.dart';
+import 'package:pandumu/screen/form/screen/form_blog.dart';
+import 'package:pandumu/screen/form/screen/form_log.dart';
+import 'package:pandumu/screen/form/screen/form_review.dart';
 import 'package:pandumu/util/custom_fade_transition.dart';
 
 void settingModalBottomSheet(context) {

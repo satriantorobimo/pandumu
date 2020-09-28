@@ -11,6 +11,7 @@ class UserDataRegisModel {
   String bpTitle;
   String bpContent;
   String gender;
+  String userId;
 
   UserDataRegisModel(
       {this.userName,
@@ -24,5 +25,6 @@ class UserDataRegisModel {
       this.bodShow,
       this.bpTitle,
       this.bpContent,
-      this.gender});
+      this.gender,
+      this.userId});
 }

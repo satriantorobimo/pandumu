@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pandumu/login/screen/login.dart';
+import 'package:pandumu/screen/login/screen/login.dart';
 import 'package:pandumu/util/color.dart';
 import 'package:pandumu/util/custom_fade_transition.dart';
 

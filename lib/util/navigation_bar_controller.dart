@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pandumu/ask_locals/screen/ask_locals.dart';
-import 'package:pandumu/home/screen/home.dart';
-import 'package:pandumu/travelmart/screen/travelmart.dart';
-import 'package:pandumu/travelog/screen/travelog.dart';
-import 'package:pandumu/tripmate/screen/tripmate.dart';
+import 'package:pandumu/screen/ask_locals/screen/ask_locals.dart';
+import 'package:pandumu/screen/home/screen/home.dart';
+import 'package:pandumu/screen/travelmart/screen/travelmart.dart';
+import 'package:pandumu/screen/travelog/screen/travelog.dart';
+import 'package:pandumu/screen/tripmate/screen/tripmate.dart';
 import 'package:pandumu/util/color.dart';
 
 class BottomNavigationBarController extends StatefulWidget {

@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pandumu/util/color.dart';
 import 'package:pandumu/util/navigation_bar_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'login/screen/login2.dart';
+import 'screen/login/screen/login2.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
